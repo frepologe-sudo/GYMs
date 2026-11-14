@@ -539,7 +539,7 @@ ord.forEach(function(k){var g=G[k],a=pdt(g.s);if(!a)return;var b=g.e?pdt(g.e):nu
 g.rows.forEach(function(x){if(H.set_type!==undefined&&x[H.set_type]==='warmup')return;var w=parseFloat(String(x[H.weight_kg]).replace(',','.')),rp=parseInt(x[H.reps],10);if(isNaN(w)&&isNaN(rp))return;var n=normEx(x[H.exercise_title]);if(!exm[n]){exm[n]={n:n,s:[]};ex.push(exm[n])}exm[n].s.push([isNaN(w)?0:w,isNaN(rp)?0:rp])});
 if(!ex.length)return;var wo={id:'i'+a.t,t:a.t,d:a.d,p:pn(g.t),dur:b?Math.max(1,Math.round((b.t-a.t)/60000)):0,ex:ex},sg=wsig(wo);if(sig[sg]){skip++;return}sig[sg]=1;S.w.push(wo);add++});
 S.w.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:(a.t||0)-(b.t||0)});
-toast(add+' neue Workouts importiert'+(skip?', '+skip+' schon vorhanden':''))}
+var npl=mkPlans();toast(add+' neue Workouts importiert'+(skip?', '+skip+' schon vorhanden':'')+(npl?', '+npl+' Pläne angelegt':''))}
 function impM(tx){var r=csv(tx),H={};if(r.length<2){toast('Datei ist leer');return}r[0].forEach(function(c,k){H[c.trim()]=k});if(H.date===undefined||H.weight_kg===undefined){toast('Das sieht nicht nach einer Körperdaten-Datei aus');return}
 var l=r.slice(1).map(function(x){var d=pdt(x[H.date]);return d?{t:d.t,w:x[H.weight_kg],f:H.fat_percent!==undefined?x[H.fat_percent]:''}:null}).filter(function(x){return x&&x.w}).sort(function(a,b){return a.t-b.t}),e=l[l.length-1];
 if(!e){toast('Keine Gewichtswerte gefunden');return}S.prof.w=String(e.w);if(e.f)S.prof.bf=String(e.f);toast('Gewicht übernommen: '+e.w+' kg')}
@@ -708,7 +708,7 @@ function heat(c,days){var t=new Date();t.setHours(0,0,0,0);var mo=new Date(t);mo
 var h='<div class="hm" style="--cols:'+c+'">';for(var r=0;r<7;r++)for(var q=0;q<c;q++){var d=new Date(st);d.setDate(st.getDate()+q*7+r);var k=key(d);h+='<i class="'+(d>t?'fu':set[k]?(k===lt?'hi':'on'):'')+'"></i>'}return h+'</div>'}
 /* ---- Detail mit Kommentaren ---- */
 function det(id){var w=S.w.filter(function(x){return x.id===id})[0],h=det0(id);if(!w)return h;
-if(!we){var pr=PRM[w.id]||[];if(pr.length){var card='<div class="c"><div class="lb">Rekorde</div>'+pr.map(function(x){return'<div class="prl">'+MEDAL+'<span>'+esc(x.n)+'</span><b>'+nf(x.w)+' kg × '+x.r+'</b></div>'}).join('')+'</div>',ix=h.indexOf('<div class="c"><div class="xh">');h=ix>-1?h.slice(0,ix)+card+h.slice(ix):h+card}
+if(!we){var sv='<div class="r"><button class="o" data-a="pfw" data-id="'+w.id+'">Als Trainingsplan speichern</button></div>';var pr=PRM[w.id]||[];if(pr.length){var card='<div class="c"><div class="lb">Rekorde</div>'+pr.map(function(x){return'<div class="prl">'+MEDAL+'<span>'+esc(x.n)+'</span><b>'+nf(x.w)+' kg × '+x.r+'</b></div>'}).join('')+'</div>',ix=h.indexOf('<div class="c"><div class="xh">');h=ix>-1?h.slice(0,ix)+card+h.slice(ix):h+card}{var jx=h.indexOf('<div class="c"><div class="xh">');h=jx>-1?h.slice(0,jx)+'<div class="c">'+sv+'</div>'+h.slice(jx):h+'<div class="c">'+sv+'</div>'}
 if(SOC)h+=socBlock(wkey(UID,w.id))}return h}
 /* ---- Netzwerk ---- */
 function wkey(o,id){return o+'~'+id}
@@ -1091,7 +1091,7 @@ var WG=['Brust','Rücken','Schultern','Bizeps','Trizeps','Quadrizeps','Beinbeuge
 function setsBy(days){var to=new Date(),from=new Date();from.setDate(to.getDate()-days+1);var f=ymd(from),t=ymd(to),o={};S.w.forEach(function(w){if(w.d<f||w.d>t)return;w.ex.forEach(function(e){var n=e.s.filter(function(s){return s[1]>0}).length;if(n){var g=exGroup(e.n);o[g]=(o[g]||0)+n}})});return o}
 function wkCard(){var d=WKR==='28'?28:7,o=setsBy(d),f=WKR==='28'?4:1,rows=WG.map(function(g){var n=Math.round((o[g]||0)/f*10)/10,c=n<10?'#e0a43a':n<=20?'#1faa6b':'#ef4a4a';return'<div class="wrw"><span>'+g+'</span><div class="wbar"><i style="width:'+Math.min(100,n/24*100)+'%;background:'+c+'"></i></div><b>'+nf(n)+'</b></div>'}).join('');
 return'<h2>Sätze pro Woche</h2><div class="c"><div class="chips" style="margin:0 0 10px">'+[['7','Letzte 7 Tage'],['28','Ø 4 Wochen']].map(function(c){return'<button data-a="wkr" data-v="'+c[0]+'" class="'+(WKR===c[0]?'on':'')+'">'+c[1]+'</button>'}).join('')+'</div>'+rows+'<div class="m" style="margin-top:10px">Richtwert: 10–20 Sätze pro Muskelgruppe und Woche. Gelb = eher wenig, grün = im Bereich, rot = viel.</div></div>'}
-function train(){return train0()+wkCard()}
+function train(){return train0()+plCard()+wkCard()}
 /* Reaktionen */
 function lkIcon(k){var l=LKS[UID],e=l&&l.rx&&l.rx[k];return e?'<span class="em">'+e+'</span>':HEART}
 function rxClose(){var p=document.getElementById('rxp');if(p)p.remove()}
@@ -1145,6 +1145,14 @@ function codeCard(){var c=null,t='';try{c=localStorage.getItem('gt_code')}catch(
 function codeInstall(h){h=String(h||'');if(h.length<5000||!/<html/i.test(h)||!/<\/script>/i.test(h)){toast('Das sieht nicht nach einer kompletten App aus');return}try{localStorage.setItem('gt_code',h);localStorage.removeItem('gt_try')}catch(e){toast('Speicher voll – Code zu groß');return}toast('Installiert – lade neu …');setTimeout(function(){location.reload()},700)}
 document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.getAttribute('data-a');if(a!=='codeins'&&a!=='codefile'&&a!=='codereset')return;e.stopPropagation();if(a==='codeins'){codeInstall((document.getElementById('cdt')||{}).value)}else if(a==='codefile'){var i=document.getElementById('cdf');if(!i){i=document.createElement('input');i.type='file';i.id='cdf';i.accept='.html,text/html,text/plain';i.hidden=true;document.body.appendChild(i);i.addEventListener('change',function(){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){codeInstall(r.result)};r.readAsText(f);i.value=''})}i.click()}else{try{localStorage.removeItem('gt_code');localStorage.removeItem('gt_try')}catch(x){}toast('Original-Code aktiv – lade neu …');setTimeout(function(){location.reload()},700)}},true);
 setTimeout(function(){try{localStorage.removeItem('gt_try')}catch(e){}},2500);
+/* Pläne aus Workouts */
+function lastWo(n){return S.w.filter(function(w){return w.p===n}).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:(a.t||0)-(b.t||0)}).pop()}
+function exOf(w){var o=[];w.ex.forEach(function(e){if(o.indexOf(e.n)<0)o.push(e.n)});return o}
+function missPl(){var o={},r=[];S.w.forEach(function(w){if(o[w.p])return;o[w.p]=1;if(pl(w.p))return;var l=lastWo(w.p);if(l&&l.ex.length>1)r.push(w.p)});return r}
+function mkPlans(){var m=missPl();m.forEach(function(n){S.plans.push({n:n,e:exOf(lastWo(n)),c:PAL[S.plans.length%PAL.length]})});return m.length}
+function planFromW(id){var w=S.w.filter(function(x){return x.id===id})[0];if(!w)return;var p=pl(w.p),e=exOf(w);if(p){p.e=e;toast('Plan „'+w.p+'“ aktualisiert')}else{S.plans.push({n:w.p,e:e,c:PAL[S.plans.length%PAL.length]});toast('Als Plan „'+w.p+'“ gespeichert')}save();render()}
+function plCard(){var m=missPl();return m.length?'<div class="c"><div class="lb">Pläne aus deinen Workouts</div><div class="m">Noch kein Plan für: '+m.map(esc).join(', ')+'</div><div class="r"><button class="b" data-a="mkpl">Pläne automatisch anlegen</button></div></div>':''}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.getAttribute('data-a');if(a!=='mkpl'&&a!=='pfw')return;e.stopPropagation();if(a==='mkpl'){var n=mkPlans();save();render();toast(n+' Pläne angelegt')}else planFromW(b.getAttribute('data-id'))},true);
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>

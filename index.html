@@ -1581,7 +1581,7 @@ function actCard(){var ev=acts().slice(0,8);if(!ev.length)return'';return'<h2>Ak
 function galCard(n){var g=(S.gal&&S.gal[n])||[];return'<div class="c"><div class="lb">Meine Fotos</div>'+(g.length?'<div class="gal">'+g.map(function(u,i){return'<div class="gi" style="background-image:url('+u+')"><button class="x" data-a="galdel" data-n="'+esc(n)+'" data-i="'+i+'">×</button></div>'}).join('')+'</div>':'<div class="m">Noch keine Fotos. Halte deine Technik oder dein Setup fest.</div>')+'<div class="r"><button class="o" data-a="galadd" data-n="'+esc(n)+'">+ Foto hinzufügen</button></div></div>'}
 /* Klicks */
 (function(){var FX={wdel:1,rxc:1,rm:1,rs:1,rsnd:1,wu:1,wck:1,wkr:1,rxo:1,rxs:1,galadd:1,galdel:1};
-document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.getAttribute('data-a');if(!FX[a])return;e.stopPropagation();if((a==='rm'||a==='rs')&&Date.now()-(window.RSK||0)<700)return;var A=S.active,k=+b.getAttribute('data-k'),j=+b.getAttribute('data-j');
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.getAttribute('data-a');if(!FX[a])return;if(a==='wdel'&&!b.hasAttribute('data-j'))return;e.stopPropagation();if((a==='rm'||a==='rs')&&Date.now()-(window.RSK||0)<700)return;var A=S.active,k=+b.getAttribute('data-k'),j=+b.getAttribute('data-j');
 if(a==='rm'){if(REST){var d=+b.getAttribute('data-d')*1000;REST.end=Math.max(Date.now()+1000,REST.end+d);REST.dur=Math.max(5,REST.dur+d/1000);restTick()}return}
 if(a==='rs'){REST=null;restUI();return}
 if(a==='rsnd'){S.rsnd=S.rsnd===0?1:0;save();if(S.rsnd!==0)beep();render();return}

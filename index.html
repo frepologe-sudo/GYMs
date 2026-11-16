@@ -1327,8 +1327,8 @@ document.addEventListener('touchstart',function(e){mode=0;if(stack.length===0||e
 document.addEventListener('touchmove',function(e){if(!mode)return;var t=e.touches[0];dx=t.clientX-sx;var dy=t.clientY-sy;
 if(mode===1){if(Math.abs(dx)<6&&Math.abs(dy)<6)return;if(Math.abs(dy)>Math.abs(dx)){mode=0;return}mode=2;mkUnder(window.scrollY);mn.style.willChange=hd.style.willChange='transform';document.body.classList.add('swp')}
 if(e.cancelable)e.preventDefault();var n=Date.now();if(n>lastT){v=(t.clientX-lastX)/(n-lastT);lastX=t.clientX;lastT=n}
-tf(Math.max(0,dx))},{passive:false});
-function fin(){if(mode!==2){mode=0;return}mode=0;var done=dx>W*.33||v>.45,tr='transform .24s cubic-bezier(.32,.72,0,1)';if(done){tf(W,tr);setTimeout(function(){clr2();goBack(true)},250)}else{tf(0,tr);setTimeout(clr2,260)}}
+if(!window.BSQ)window.BSQ=requestAnimationFrame(function(){window.BSQ=0;if(mode===2)tf(Math.max(0,dx))})},{passive:false});
+function fin(){if(window.BSQ){cancelAnimationFrame(window.BSQ);window.BSQ=0}if(mode!==2){mode=0;return}mode=0;var done=dx>W*.33||v>.45,tr='transform .24s cubic-bezier(.32,.72,0,1)';if(done){tf(W,tr);setTimeout(function(){clr2();goBack(true)},250)}else{tf(0,tr);setTimeout(clr2,260)}}
 document.addEventListener('touchend',fin,{passive:true});document.addEventListener('touchcancel',fin,{passive:true})})();
 socInit();
 
@@ -2405,6 +2405,21 @@ function clr(n){var a=ACCS[S.acc];return a?a[1]:'#ef4a4a'}
 /* Fixes: Profil-Untertitel (Wochenzähler) + Follower-Zeile nur mit Cloud */
 function psub(){var p=S.prof,a=[],d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);var ws=key(d),c=S.w.filter(function(w){return w.d>=ws}).length;if(p.h)a.push(esc(p.h)+' cm');if(p.w)a.push(esc(p.w)+' kg');if(p.bf)a.push(esc(p.bf)+' % KF');if(p.g)a.push('Diese Woche '+c+'/'+esc(p.g));return a.join(' · ')||'Angaben in den Einstellungen'}
 function folLine(){return(SOC?'<div class="fls" data-a="fl"><b>'+FOLR.length+'</b> Follower · <b>'+FOL.length+'</b> Folgend</div>':'')+actCard()}
+
+;(function(){try{
+if(S.mig2)return;
+var A=['Schrägbankdrücken (Multipresse)','Latzug (Kabelzug)','Schulterpresse sitzend (Maschine)','Sitzendes Rudern - Stangengriff (Kabelzug)','Einarmiges Seitheben (Kabelzug)','Einarmiges Trizepsdrücken (Kabelzug)','Preacher Curl (Langhantel)'];
+var B=['Brustpresse (Maschine)','Einarmiges Rudern (Kabelzug)','Butterfly','Pullover (Maschine)','Reverse Fliegende (Maschine)','JM-Press (Langhantel)','Hammer Curl (Kabelzug)'];
+var pl=S.plans,i;
+function by(n){for(var k=0;k<pl.length;k++)if(pl[k].n===n)return pl[k]}
+var push=by('Push'),pull=by('Pull'),up=by('Upper');
+if(push&&push.e.indexOf('Brustpresse (Maschine)')<0){var bi=push.e.indexOf('Butterfly');push.e.splice(bi<0?push.e.length:bi+1,0,'Brustpresse (Maschine)')}
+if(up&&!by('Upper A')){S.mig2={old:up.e.slice()};S.w.forEach(function(w){if(w.p==='Upper')w.p='Upper A'});up.n='Upper A';up.e=A.slice()}
+else if(!up&&!by('Upper A')){pl.push({n:'Upper A',e:A.slice(),c:PAL[pl.length%PAL.length]})}
+if(!by('Upper B'))pl.push({n:'Upper B',e:B.slice(),c:PAL[pl.length%PAL.length]});
+S.mig2=S.mig2||{old:[]};
+save();
+}catch(e){}})();
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>

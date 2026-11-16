@@ -780,6 +780,16 @@ html,body{overflow-x:clip}
 .sec>.c{text-transform:none;letter-spacing:normal;font-weight:400;font-size:14px;color:var(--txt)}
 .sec>.c .m,.sec>.c .kbs{letter-spacing:normal}
 .hcap{margin:6px 0 16px}.hcap button{width:100%}
+
+.ordc{padding:12px 14px}.ordc .m{margin:0 0 6px}
+.orw{display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid rgba(255,255,255,.07)}
+.orw:first-of-type{border-top:0}
+.orn{font-style:normal;width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:700;background:rgba(255,255,255,.08);flex:0 0 auto}
+.orw b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
+.orw.on .orn{background:var(--acc,#f0613f);color:#fff}
+.orb{border:0;border-radius:11px;padding:0 10px;height:34px;font-size:12px;font-weight:600;background:rgba(255,255,255,.08);color:inherit;flex:0 0 auto;white-space:nowrap}
+.orb.ar{width:34px;padding:0;font-size:11px}.orb:disabled{opacity:.3}
+.orw.on .orb:not(.ar){background:rgba(255,255,255,.16)}
 </style><style id="neonst">/* ===== Glas + Neon Finish ===== */
 body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(60px);opacity:.55}
 body::before{width:300px;height:300px;right:-90px;top:12%;background:radial-gradient(circle,rgba(var(--ar),.5),transparent 70%);animation:nOrb 14s ease-in-out infinite alternate}
@@ -1099,7 +1109,7 @@ document.addEventListener('change',function(e){var t=e.target;if(t.id==='sel'){c
 else if(t.id==='nm'){S.name=t.value.trim()||'Athlet';save();render()}
 else if(t.getAttribute('data-wf')){var Wc=S.w.filter(function(x){return x.id===V.a})[0],ff=t.getAttribute('data-wf');if(Wc){if(ff==='d'&&t.value)Wc.d=t.value;else if(ff==='dur')Wc.dur=Math.max(0,Math.round(num(t.value)||0));else if(ff==='p')Wc.p=t.value;S.w.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:(a.t||0)-(b.t||0)});save();render()}}
 else if(t.getAttribute('data-p')){S.prof[t.getAttribute('data-p')]=t.value.trim();save()}
-else if(t.id==='fw'||t.id==='fm'){var f2=t.files[0];if(!f2)return;var rd2=new FileReader();rd2.onload=function(){try{if(t.id==='fw')impW(rd2.result);else impM(rd2.result)}catch(x){toast('Import fehlgeschlagen')}t.value='';save();render()};rd2.readAsText(f2)}
+else if(t.id==='fw'||t.id==='fm'){var f2=t.files[0];if(!f2)return;var rd2=new FileReader();rd2.onload=function(){try{impSnap();if(t.id==='fw')impW(rd2.result);else impM(rd2.result);impDone()}catch(x){toast('Import fehlgeschlagen')}t.value='';save();render()};rd2.readAsText(f2)}
 else if(t.id==='fi'){var f=t.files[0];if(!f||!pend)return;var p=pend;cropTo(f,p.k==='ex'?160:700,p.k==='ex',function(u){if(p.k==='ex')S.img[p.n]=u;else if(p.k==='gal'){S.gal=S.gal||{};(S.gal[p.n]=S.gal[p.n]||[]).push(u)}else{var w=S.w.filter(function(x){return x.id===p.id})[0];if(w)w.photo=u}save();render()});t.value=''}});
 var LIB={
 'Brust':['Bankdrücken (Langhantel)','Bankdrücken (Kurzhantel)','Schrägbankdrücken (Langhantel)','Schrägbankdrücken (Kurzhantel)','Negativbankdrücken (Langhantel)','Negativbankdrücken (Kurzhantel)','Bankdrücken (Maschine)','Brustpresse (Maschine)','Schrägbankdrücken (Maschine)','Bankdrücken (Smith-Maschine)','Schrägbankdrücken (Smith-Maschine)','Butterfly (Maschine)','Fliegende (Kurzhantel)','Schrägbank-Fliegende (Kurzhantel)','Fliegende (Kabelzug)','Cable Crossover','Brustdrücken (Kabelzug)','Liegestütze','Dips (Brust)','Svend Press'],
@@ -1644,7 +1654,7 @@ function stripH2(h){return h.replace(/<h2[^>]*>[^<]*<\/h2>/g,'')}
 function sett(){var hero='<div class="shero"><i class="av2 big">'+esc(ini(S.name||'M'))+'</i><div class="shn"><label>Dein Name</label><input id="nm" value="'+esc(S.name)+'" maxlength="30" placeholder="Name"></div></div>';
 var body=sfld('Größe (cm)','h','z. B. 180')+sfld('Gewicht (kg)','w','z. B. 75')+sfld('Körperfett (%)','bf','optional')+sfld('Ziel-Gewicht (kg)','tw','optional')+sfld('Wochenziel','g','z. B. 4','numeric')+sfld('Schrittziel pro Tag','sg','10000','numeric');
 var h=hero+goalCard()+sec('Darstellung',IC.d,thBody())+sec('Körper &amp; Ziele',IC.u,'<div class="sgr">'+body+'</div>')+sec('Ernährung',IC.t,foodFields())+sec('Training',IC.d,restBody())+sec('Siri &amp; Kurzbefehle',IC.d,kbBody())+'<div class="sec2">'+socSettings().replace(/<h2>Freunde<\/h2>/,'<div class="sh"><i>'+IC.s+'</i><b>Freunde &amp; Cloud</b></div>')+'</div>'+'<div class="sec2">'+exportCard().replace(/<h2>[^<]*<\/h2>/,'<div class="sh"><i>'+IC.x+'</i><b>Daten exportieren</b></div>')+'</div>'
-+sec('Daten importieren',IC.i,'<div class="m">Lade hier den neuen Export aus Hevy hoch (Hevy: Profil → Einstellungen → Export &amp; Import Data). Neue Workouts kommen dazu, bekannte werden nicht doppelt angelegt.</div><div class="r"><button class="b" data-a="impw">Workouts importieren (CSV)</button></div><div class="r"><button class="o" data-a="impm">Körperdaten importieren (CSV)</button></div>')+sec('Backup',IC.b,bkFile())+'<div class="sec2">'+admCard().replace(/<h2 id="admh">Admin<\/h2>/,'<div class="sh" id="admh"><i>'+IC.a+'</i><b>Admin</b></div>')+'</div>';return h}
++sec('Daten importieren',IC.i,'<div class="m">Lade hier den neuen Export aus Hevy hoch (Hevy: Profil → Einstellungen → Export &amp; Import Data). Neue Workouts kommen dazu, bekannte werden nicht doppelt angelegt.</div><div class="r"><button class="b" data-a="impw">Workouts importieren (CSV)</button></div><div class="r"><button class="o" data-a="impm">Körperdaten importieren (CSV)</button></div>'+(impHas()?'<div class="r"><button class="o" data-a="impundo">Letzten Import rückgängig machen</button></div>':''))+sec('Backup',IC.b,bkFile())+'<div class="sec2">'+admCard().replace(/<h2 id="admh">Admin<\/h2>/,'<div class="sh" id="admh"><i>'+IC.a+'</i><b>Admin</b></div>')+'</div>';return h}
 
 /* ===== Code-Update (Admin) ===== */
 function codeCard(){var c=null,t='';try{c=localStorage.getItem('gt_code')}catch(e){}return'<div class="c"><div class="lb">App-Code ersetzen</div><div class="m">'+(c?'Eigener Code aktiv ('+Math.round(c.length/1024)+' KB). ':'Es läuft der eingebaute Code. ')+'Hier kannst du eine neue Version der App einspielen: Datei wählen oder kompletten Code einfügen. Bei einem Fehler startet nach zwei misslungenen Versuchen automatisch wieder der Original-Code. Notfall: <b>#safe</b> an die Adresse hängen.</div><textarea id="cdt" rows="4" placeholder="Kompletten HTML-Code hier einfügen …"></textarea><div class="r"><button class="o" data-a="codefile">Datei wählen</button><button class="b" data-a="codeins">Installieren</button></div>'+(c?'<div class="r"><button class="o" style="color:#ef6a5a" data-a="codereset">Zurück zum Original</button></div>':'')+'</div>'}
@@ -1690,7 +1700,7 @@ var cnt={};S.w.forEach(function(w){var kk=key(wkStart(new Date(w.d+'T12:00:00'))
 var pm=prMap(),c30=dk(30),prc=0;S.w.forEach(function(w){if(w.d>=c30)prc+=(pm[w.id]||[]).length});
 var R=34,C=2*Math.PI*R,pc=Math.min(1,done/goal);
 var hero='<div class="hero'+(Date.now()-HA<1200?' in':'')+'"><div class="hxg"><div><div class="hxd">'+now.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})+'</div><h1>'+gr+', <span>'+nm+'</span></h1></div><svg class="hxr" data-a="wgo" viewBox="0 0 84 84"><circle cx="42" cy="42" r="'+R+'" class="hxt"/><circle cx="42" cy="42" r="'+R+'" class="hxp" stroke-dasharray="'+(C*pc)+' '+C+'" transform="rotate(-90 42 42)"/><text x="42" y="40" text-anchor="middle" class="hxn">'+done+'/'+goal+'</text><text x="42" y="54" text-anchor="middle" class="hxl">Woche</text></svg></div><div class="hxw">'+days.join('')+'</div><div class="hxs"><div><b>'+sr+'</b><span>Wochenserie</span></div><div><b>'+(vl>=1000?nf(vl/1000)+' t':nf(vl)+' kg')+'</b><span>Volumen</span></div><div><b>'+st+'</b><span>Sätze</span></div><div><b>'+prc+'</b><span>Rekorde 30T</span></div></div></div>';
-var cta='';if(!S.active&&S.plans.length){var ps=S.plans.filter(function(p){return p.e.length}),nx=null,bt=1e18;ps.forEach(function(p){var l=S.w.filter(function(w){return w.p===p.n}).pop(),t=l?new Date(l.d).getTime():0;if(t<bt){bt=t;nx=p}});if(nx){var ix=S.plans.indexOf(nx);cta='<div class="cta" data-a="start" data-i="'+ix+'"><div><div class="ck1">Als Nächstes</div><div class="cn">'+esc(nx.n)+'</div><div class="cm">'+esc(nx.e.slice(0,3).map(function(n){return n.replace(/ \(.*\)/,'')}).join(' · '))+(nx.e.length>3?' …':'')+'</div></div><div class="cgo"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></div></div>'}}
+var cta='';if(!S.active&&S.plans.length){var ps=S.plans.filter(function(p){return p.e.length}),nx=null,bt=1e18;ps.forEach(function(p){var l=S.w.filter(function(w){return w.p===p.n}).pop(),t=l?new Date(l.d).getTime():0;if(t<bt){bt=t;nx=p}});nx=nextPlan()||nx;if(nx){var ix=S.plans.indexOf(nx);cta='<div class="cta" data-a="start" data-i="'+ix+'"><div><div class="ck1">Als Nächstes</div><div class="cn">'+esc(nx.n)+'</div><div class="cm">'+esc(nx.e.slice(0,3).map(function(n){return n.replace(/ \(.*\)/,'')}).join(' · '))+(nx.e.length>3?' …':'')+'</div></div><div class="cgo"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></div></div>'}}
 return hero+cta+bwPrompt()+phPrompt()+mbCard()+heatCard()+volChart()+mrEntry()+'<h2 class="fh">Aktivität</h2>'}
 function home(){return heroCard()+home0()}
 
@@ -1804,7 +1814,7 @@ function pthumb(n){var im=S.img[n]||bimgFor(n);return'<i class="pth" style="'+(i
 function trPlans(){var lim=Date.now()-30*864e5;
 var h=S.plans.map(function(p,i){var ls=S.w.filter(function(w){return w.p===p.n}),l=ls[ls.length-1],c30=ls.filter(function(w){return new Date(w.d+'T12:00:00').getTime()>=lim}).length,th=p.e.slice(0,4).map(pthumb).join(''),more=p.e.length>4?'<b class="pcm">+'+(p.e.length-4)+'</b>':'';
 return'<div class="c pcx" data-a="pl" data-i="'+i+'" style="--pc:'+clr(p.n)+'"><div class="pcs">'+(th||'<span class="pce">Leer</span>')+more+'</div><div class="pci"><div class="pcn">'+esc(p.n)+'</div><div class="pcl">'+p.e.length+(p.e.length===1?' Übung':' Übungen')+(l?' · '+trRel(l.d):' · noch nie')+'</div>'+(c30?'<div class="pcb"><i style="width:'+Math.min(100,c30*100/12)+'%"></i></div><div class="pcl">'+c30+'× in 30 Tagen</div>':'')+'</div><span class="pcg">'+CHV+'</span></div>'}).join('');
-return'<div class="tsh"><span>Deine Pläne</span><em>'+S.plans.length+'</em></div>'+h+'<div class="c npr"><input id="np" maxlength="30" placeholder="Neuer Plan, z. B. Legs"><button class="b" data-a="addplan" aria-label="Plan anlegen">+</button></div>'}
+return'<div class="tsh"><span>Deine Pläne</span><em>'+S.plans.length+'</em></div>'+h+'<div class="c npr"><input id="np" maxlength="30" placeholder="Neuer Plan, z. B. Legs"><button class="b" data-a="addplan" aria-label="Plan anlegen">+</button></div>'+trOrd()}
 function trTools(){var m=missPl(),t='';
 if(S.w.length)t+='<div class="ttl" data-a="cmv"><div class="tti">⇄</div><div class="ttt">Übungen<br>vergleichen</div></div><div class="ttl" data-a="mrv"><div class="tti">▦</div><div class="ttt">Monats&shy;rückblick</div></div>'+yrEntry()+phEntry()+b3Tile();
 
@@ -2420,6 +2430,25 @@ if(!by('Upper B'))pl.push({n:'Upper B',e:B.slice(),c:PAL[pl.length%PAL.length]})
 S.mig2=S.mig2||{old:[]};
 save();
 }catch(e){}})();
+
+;var IMPS=null;try{IMPS=localStorage.getItem('gt4_imp')}catch(e){}
+function impHas(){return!!IMPS}
+function impSnap(){try{IMPS=JSON.stringify(S);try{localStorage.setItem('gt4_imp',IMPS)}catch(x){}}catch(e){IMPS=null}}
+function impBar(){var el=document.getElementById('und');if(!el){el=document.createElement('div');el.id='und';document.body.appendChild(el)}el.innerHTML='<span>Import abgeschlossen</span><button data-a="impundo">Rückgängig</button>';el.className='on';clearTimeout(impBar.x);impBar.x=setTimeout(function(){el.className=''},9000)}
+function impDone(){if(IMPS&&JSON.stringify(S)===IMPS){IMPS=null;try{localStorage.removeItem('gt4_imp')}catch(e){}return}if(IMPS)impBar()}
+function impUndo(){if(!IMPS)return;try{var o=JSON.parse(IMPS);S=fixS(o);IMPS=null;try{localStorage.removeItem('gt4_imp')}catch(x){}save();var el=document.getElementById('und');if(el)el.className='';render();toast('Import rückgängig gemacht')}catch(e){toast('Rückgängig nicht möglich')}}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="impundo"]');if(!b)return;e.stopPropagation();e.preventDefault();impUndo()},true);
+
+;function nextPlan(){var ps=S.plans,n=ps.length;if(!n)return null;
+function ix(nm){for(var i=0;i<n;i++)if(ps[i].n===nm)return i;return -1}
+if(S.nx){var inv=S.w.some(function(w){return(w.t||0)>=S.nx.t}),k=ix(S.nx.n);if(k>=0&&!inv&&ps[k].e.length)return ps[k]}
+var last=null;S.w.forEach(function(w){if(ix(w.p)<0)return;if(!last||w.d>last.d||(w.d===last.d&&(w.t||0)>=(last.t||0)))last=w});
+var st=last?ix(last.p)+1:0;for(var j=0;j<n;j++){var p=ps[(st+j)%n];if(p.e.length)return p}return null}
+function trOrd(){if(S.plans.length<2)return'';var nx=nextPlan();
+return'<div class="tsh"><span>Reihenfolge</span></div><div class="c ordc"><div class="m">Nach dem letzten Training kommt der nächste Plan in dieser Reihenfolge. Mit „Als Nächstes“ legst du den nächsten Plan selbst fest.</div>'+S.plans.map(function(p,i){var on=nx&&nx.n===p.n;return'<div class="orw'+(on?' on':'')+'"><i class="orn">'+(i+1)+'</i><b>'+esc(p.n)+'</b><button class="orb" data-a="trn" data-i="'+i+'" aria-label="Als Nächstes">'+(on?'Als Nächstes ✓':'Als Nächstes')+'</button><button class="orb ar" data-a="tru" data-i="'+i+'" aria-label="Nach oben"'+(i?'':' disabled')+'>▲</button><button class="orb ar" data-a="trd" data-i="'+i+'" aria-label="Nach unten"'+(i<S.plans.length-1?'':' disabled')+'>▼</button></div>'}).join('')+'</div>'}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="trn"],[data-a="tru"],[data-a="trd"]');if(!b)return;e.stopPropagation();e.preventDefault();var a=b.getAttribute('data-a'),i=+b.getAttribute('data-i'),P=S.plans;
+if(a==='trn'){S.nx={n:P[i].n,t:Date.now()}}else{var j=a==='tru'?i-1:i+1;if(j<0||j>=P.length)return;var t=P[i];P[i]=P[j];P[j]=t}
+save();render()},true);
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>

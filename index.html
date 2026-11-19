@@ -2695,13 +2695,10 @@ var HLC=[
 {t:'a',k:'dist',n:'Strecke',u:'km',r:/walking.?running.?distance|^distance|distanz|strecke/i,a:'sum',d:1,g:'up',i:'Gehen und Laufen'},
 {t:'a',k:'kcal',n:'Aktive Energie',u:'kcal',r:/active.?energy|aktive.?energie|active.?calor/i,a:'sum',d:0,g:'up',i:'Verbrannte Kalorien durch Bewegung'},
 {t:'a',k:'exm',n:'Trainingsminuten',u:'min',r:/exercise.?time|trainingsminuten/i,a:'sum',d:0,g:'up',i:'Minuten mit erhöhter Belastung'},
-{t:'a',k:'stand',n:'Stehstunden',u:'Std.',r:/stand.?hour|stehstunden/i,a:'sum',d:0,g:'up',i:'Stunden, in denen du aufgestanden bist'},
 {t:'a',k:'fl',n:'Stockwerke',u:'',r:/flights.?climbed|stockwerk|treppen/i,a:'sum',d:0,g:'up',i:'Treppen und Anstiege'},
-{t:'a',k:'cdist',n:'Radstrecke',u:'km',r:/cycling.?distance|radstrecke/i,a:'sum',d:1,g:'up',i:'Strecke auf dem Rad'},
 {t:'a',k:'bkcal',n:'Ruheenergie',u:'kcal',r:/basal.?energy|resting.?energy|ruheenergie/i,a:'sum',d:0,g:'',i:'Grundumsatz, den dein Körper in Ruhe verbrennt'},
 {t:'a',k:'wspd',n:'Gehgeschwindigkeit',u:'km/h',r:/walking.?speed|gehgeschwindigkeit/i,a:'avg',d:1,g:'up',i:'Normale Gehgeschwindigkeit'},
-{t:'a',k:'wstep',n:'Schrittlänge',u:'cm',r:/step.?length|schrittl/i,a:'avg',d:0,g:'up',i:'Länge deiner Schritte beim Gehen'},
-{t:'a',k:'dayl',n:'Tageslicht',u:'min',r:/daylight|tageslicht/i,a:'sum',d:0,g:'up',i:'Zeit im Freien bei Tageslicht'}];
+{t:'a',k:'wstep',n:'Schrittlänge',u:'cm',r:/step.?length|schrittl/i,a:'avg',d:0,g:'up',i:'Länge deiner Schritte beim Gehen'}];
 function hlKey(n){n=String(n||'');for(var i=0;i<HLC.length;i++)if(HLC[i].r.test(n))return HLC[i].k;return''}
 function hlC(k){return HLC.filter(function(x){return x.k===k})[0]}
 function hlAdd(hm,k,d,v){v=slNum(v);if(!k||!d||!(v>=0)||isNaN(v))return;if(k==='spo2'&&v<=1)v*=100;(hm[k]=hm[k]||{});(hm[k][d]=hm[k][d]||[]).push(v)}

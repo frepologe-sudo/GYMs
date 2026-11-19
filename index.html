@@ -881,7 +881,7 @@ input.rqr{border:0!important;background:transparent!important;padding:0!importan
 .ijl{padding:8px 0;border-top:1px solid rgba(255,255,255,.07);font-size:14px}
 .hm i.ij{background:repeating-linear-gradient(135deg,rgba(251,146,60,.65) 0 2px,rgba(251,146,60,.18) 2px 4px)!important;box-shadow:none!important}.ijlg{margin-top:8px;font-size:11px}
 
-.ahcw{position:relative}.ahc.thin{gap:1px}.ahc.thin em{font-size:8px;white-space:nowrap;overflow:visible;width:0;text-align:center}.ahc.thin .bw i{border-radius:2px}
+.ahcw{position:relative}.ahc.thin{gap:1px}.ahc em{display:block;height:14px;line-height:14px;width:100%;position:relative;text-align:center;flex:0 0 14px}.ahc em span{position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap}.ahc .bw{min-height:0}.ahc.thin .bw i{border-radius:2px}
 .ahav{position:absolute;left:0;right:0;bottom:calc(18px + (100% - 18px) * var(--p));border-top:1px dashed rgba(255,255,255,.45);pointer-events:none}
 .ahln{width:100%;height:120px;margin-top:8px}.hlt[data-a=ahk]{cursor:pointer}
 
@@ -889,6 +889,7 @@ input.rqr{border:0!important;background:transparent!important;padding:0!importan
 .rdr{width:56px;height:56px;flex:0 0 56px;display:grid;place-items:center;position:relative}.rdr:before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--c) calc(var(--v)*1%),rgba(255,255,255,.12) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px));mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px))}.rdr b{position:relative;font-size:18px}
 .rdr.big{width:120px;height:120px;flex-basis:120px;margin:6px auto 0}.rdr.big:before{-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 10px),#000 calc(100% - 9px));mask:radial-gradient(farthest-side,transparent calc(100% - 10px),#000 calc(100% - 9px))}.rdr.big b{font-size:38px}.rdb{text-align:center}.rdb .rdt{font-size:20px}
 .rdk{padding:8px 0}
+.ijw.lo{background:transparent;border:1px solid rgba(251,146,60,.35);color:var(--mut);font-weight:500}
 </style><style id="neonst">/* ===== Glas + Neon Finish ===== */
 body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(60px);opacity:.55}
 body::before{width:300px;height:300px;right:-90px;top:12%;background:radial-gradient(circle,rgba(var(--ar),.5),transparent 70%);animation:nOrb 14s ease-in-out infinite alternate}
@@ -1382,7 +1383,7 @@ document.getElementById('hd').innerHTML=(stack.length?'<button class="bk" data-a
 document.querySelectorAll('.bar button').forEach(function(b){b.className=b.getAttribute('data-t')===root?'on':''});
 var y=window.scrollY,mn=document.getElementById('main');var vk=V.s+'|'+V.a;mn.className=an||(vk!==LVK?'fu':'');LVK=vk;an='';
 mn.innerHTML=V.s==='h'?home():V.s==='t'?train():V.s==='p'?prof():V.s==='v'?hist():V.s==='e'?sett():V.s==='mv'?mview():V.s==='r'?rview():V.s==='k'?kview():V.s==='w'?wk():V.s==='d'?det(V.a):V.s==='x'?pickView():V.s==='u'?uview(V.a):V.s==='ud'?udet(V.a):V.s==='fl'?flview():V.s==='sl'?slView():V.s==='ak'?ahView():V.s==='f'?food():V.s==='ei'?exview(V.a):plan(V.a);
-{var bx=(V.s==='h'||V.s==='sl'||V.s==='ak'?ahRem():'')+(V.s==='h'||V.s==='t'||V.s==='w'?ijBan():'');if(bx)mn.innerHTML=bx+mn.innerHTML;ijMark()}
+{var bx=(V.s==='h'||V.s==='sl'||V.s==='ak'?ahRem():'')+(V.s==='h'||V.s==='t'||V.s==='w'?ijBan():'')+(V.s==='h'?bkRem():'')+(V.s==='sl'||V.s==='ak'?hkCard():'');if(bx)mn.innerHTML=bx+mn.innerHTML;ijMark();bkPlace()}
 window.scrollTo(0,y);
 var pb=document.getElementById('pill');if(!pb){pb=document.createElement('button');pb.id='pill';pb.setAttribute('data-a','gow');document.body.appendChild(pb)}
 pb.style.display=(S.active&&V.s!=='w'&&V.s!=='x')?'flex':'none';pb.innerHTML=S.active?'<i></i>Training läuft · <b data-timer>'+fmtT(Date.now()-S.active.t)+'</b><span class="lv" data-live></span>':'';
@@ -2059,7 +2060,7 @@ var bl=bwLog().filter(function(x){return x.d.slice(0,4)===String(y)});if(bl.leng
 h+=mcardAbs('Trainierte Muskeln',mscore(D.ws));
 return h+'<div class="r" style="margin:14px 0 30px"><button class="b" data-a="yrs">Rückblick teilen</button></div>'}
 /* Datei-Ausgabe */
-function fileOut(fn,txt,mime,ok){function dl(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:mime}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},4000);if(ok)ok()}
+function fileOut0(fn,txt,mime,ok){function dl(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:mime}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},4000);if(ok)ok()}
 var dn=null;try{dn=window.claude&&claude.use?claude.use('downloads'):null}catch(x){}
 Promise.resolve(dn).then(function(d){if(d&&d.save)return d.save({filename:fn,data:txt}).then(function(){return 1});return 0}).catch(function(e){return e&&e.code==='declined'?2:0}).then(function(r){if(r===2)return;if(r===1){if(ok)ok();return}
 try{var f=new File([txt],fn,{type:mime});if(navigator.canShare&&navigator.canShare({files:[f]})){return navigator.share({files:[f],title:fn}).then(function(){if(ok)ok()}).catch(function(e){if(!e||e.name!=='AbortError')dl()})}}catch(x){}dl()})}
@@ -2641,7 +2642,7 @@ var h=rcHead('Wochenvergleich',WV.o?'Woche '+fd2(m0)+' – '+fd2(e0):'Diese Woch
 function row(l,a,b,f,inv,av){return'<div class="wvr"><span>'+l+'</span><b>'+f(a)+'</b><i>'+f(b)+'</i>'+(av&&(!a||!b)?'<em class="z">–</em>':wvD(a,b,inv))+'</div>'}
 h+='<div class="c"><div class="wvr hd"><span></span><b>'+(WV.o?'Diese':'Jetzt')+'</b><i>Davor</i><em></em></div>'+row('Einheiten',A.n,B.n,nf)+row('Volumen (kg)',Math.round(A.vol),Math.round(B.vol),nf)+row('Sätze',A.sets,B.sets,nf)+row('Zeit (Min.)',A.min,B.min,nf);
 var ra=wvAvg(A.rt),rb=wvAvg(B.rt);if(ra||rb)h+=row('Ø Bewertung',ra,rb,function(v){return v?(Math.round(v*10)/10).toString().replace('.',',')+'/10':'–'},0,1);
-var pa=wvAvg(A.rpe),pb=wvAvg(B.rpe);if(pa||pb)h+=row('Ø RPE',pa,pb,function(v){return v?(Math.round(v*10)/10).toString().replace('.',','):'–'},1,1);h+='</div>';
+var pa=wvAvg(A.rpe),pb=wvAvg(B.rpe);if(pa||pb)h+=row('Ø RPE',pa,pb,function(v){return v?(Math.round(v*10)/10).toString().replace('.',','):'–'},1,1);h+='</div>'+((A.n&&A.rt.length<A.n)||(B.n&&B.rt.length<B.n)?'<div class="m" style="padding:0 6px 8px">Bewertet: '+A.rt.length+' von '+A.n+' Einheiten, davor '+B.rt.length+' von '+B.n+'. Importierte Hevy-Trainings haben keine Bewertung und zählen nicht in die Schnitte.</div>':'');
 var ks=Object.keys(A.mu).concat(Object.keys(B.mu).filter(function(k){return!A.mu[k]})).sort(function(x,y){return(A.mu[y]||0)-(A.mu[x]||0)||(B.mu[y]||0)-(B.mu[x]||0)}).slice(0,8),mx=Math.max.apply(0,ks.map(function(k){return Math.max(A.mu[k]||0,B.mu[k]||0)}))||1;
 if(ks.length)h+='<div class="c"><div class="lb">Sätze pro Muskel</div>'+ks.map(function(k){var a=Math.round(A.mu[k]||0),b=Math.round(B.mu[k]||0);return'<div class="wvm"><div class="row2"><span>'+esc(MN[k]||k)+'</span><b>'+a+' <small>vs '+b+'</small></b></div><div class="pbar"><i style="width:'+Math.max(3,a/mx*100)+'%"></i></div><div class="pbar pb2"><i style="width:'+Math.max(3,b/mx*100)+'%"></i></div></div>'}).join('')+'</div>';
 if(!A.n&&!B.n)h+='<div class="c m">In diesen zwei Wochen gibt es keine Trainings.</div>';return h}
@@ -2816,19 +2817,19 @@ if(AHP.x){try{rd.cancel()}catch(e){}throw new Error('cancel')}}
 buf+=dec.decode();if(buf)ahProc(P,buf);
 ahUiOff();AHP.open=0;ahApply(P)}
 catch(e){ahUiOff();AHP.open=0;var m=e&&e.message;toast(m==='cancel'?'Import abgebrochen':m==='noxml'?'In der ZIP wurde keine export.xml gefunden':m==='nodec'?'Dieses iOS kann ZIPs nicht direkt lesen. Tippe in „Dateien“ auf die ZIP und wähle dann die export.xml aus.':m==='zip'?'Das ist keine gültige ZIP-Datei':'Import fehlgeschlagen')}}
-function ahApply(P){var hm={},nh=0,sl={},ns=0;
+function ahApply(P,q){var hm={},nh=0,sl={},ns=0;
 Object.keys(P.ac).forEach(function(k){var c=hlC(k);if(!c)return;Object.keys(P.ac[k]).forEach(function(d){var o=P.ac[k][d],srcs=Object.keys(o),v;if(c.a==='sum'){v=0;srcs.forEach(function(s){v=Math.max(v,o[s].s)})}else{var S1=0,N1=0;srcs.forEach(function(s){S1+=o[s].s;N1+=o[s].n});v=N1?S1/N1:null}if(v===null||isNaN(v))return;(hm[k]=hm[k]||{})[d]=Math.round(v*100)/100;nh++})});
 var nights={};Object.keys(P.sb).forEach(function(k){nights[k]=1});Object.keys(P.sa).forEach(function(k){nights[k]=1});
 Object.keys(nights).forEach(function(k){var hrs=P.sa[k]&&P.sa[k].length?ahUnion(P.sa[k]):ahUnion(P.sb[k]||[]);if(hrs>=1&&hrs<=16){sl[k]=Math.round(hrs*100)/100;ns++}});
 var wk=P.wk.slice().sort(function(a,b){return a.t-b.t}),keep=[];
 wk.forEach(function(w){var dup=-1;keep.forEach(function(o,i){if(dup<0&&ahCat(o.y)===ahCat(w.y)&&Math.min(o.e,w.e)-Math.max(o.t,w.t)>.5*Math.min(o.e-o.t,w.e-w.t))dup=i});if(dup<0)keep.push(w);else if(w.h&&!keep[dup].h)keep[dup]=w});
-if(!ns&&!nh&&!keep.length){toast('Keine Gesundheitsdaten in der Datei erkannt');return}
+if(!ns&&!nh&&!keep.length){if(!q)toast('Keine Gesundheitsdaten in der Datei erkannt');return}
 S.sl=S.sl||{};S.hm=S.hm||{};var nw=0,upd=0,ex={};ahArr().forEach(function(o){ex[o.t]=JSON.stringify(o)});
 Object.keys(sl).forEach(function(k){if(!(S.sl[k]>0))nw++;else if(S.sl[k]!==sl[k])upd++});Object.keys(hm).forEach(function(k){Object.keys(hm[k]).forEach(function(d){var o=(S.hm[k]||{})[d];if(o===undefined)nw++;else if(o!==hm[k][d])upd++})});keep.forEach(function(w){if(ex[w.t]===undefined)nw++;else if(ex[w.t]!==JSON.stringify(w))upd++});
-if(!nw&&!upd){S.ri=Date.now();save();toast('Nichts Neues: alle Werte sind schon in der App');render();return}
-impSnap();S.sl=S.sl||{};Object.keys(sl).forEach(function(k){S.sl[k]=sl[k]});S.hm=S.hm||{};Object.keys(hm).forEach(function(k){S.hm[k]=S.hm[k]||{};Object.keys(hm[k]).forEach(function(d){S.hm[k][d]=hm[k][d]})});
+if(!nw&&!upd){S.ri=Date.now();save();if(!q)toast('Nichts Neues: alle Werte sind schon in der App');if(!q)render();return}
+if(!q)impSnap();S.sl=S.sl||{};Object.keys(sl).forEach(function(k){S.sl[k]=sl[k]});S.hm=S.hm||{};Object.keys(hm).forEach(function(k){S.hm[k]=S.hm[k]||{};Object.keys(hm[k]).forEach(function(d){S.hm[k][d]=hm[k][d]})});
 var old=ahArr().filter(function(o){return!keep.some(function(w){return w.t===o.t||Math.min(o.e,w.e)-Math.max(o.t,w.t)>.5*Math.min(o.e-o.t,w.e-w.t)})}),all=old.concat(keep).sort(function(a,b){return a.t-b.t});if(all.length>900)all=all.slice(-900);S.aw=all;
-S.ri=Date.now();save();impDone(nw+' neu'+(upd?', '+upd+' aktualisiert':'')+' importiert ('+keep.length+' Workouts, '+ns+' Nächte)');render()}
+S.ri=Date.now();save();if(q)render();else{impDone(nw+' neu'+(upd?', '+upd+' aktualisiert':'')+' importiert ('+keep.length+' Workouts, '+ns+' Nächte)');render()}}
 /* ---- Abgleich mit Hevy ---- */
 function ahMatch(){var A=ahArr(),m={},by={},used={};A.forEach(function(a,i){if(ahCat(a.y)!=='k')return;var best=null,bd=1e18;S.w.forEach(function(w){if(w.d!==a.d||used[w.id])return;var t=typeof w.t==='number'?w.t:a.t,dd=Math.abs(t-a.t);if(dd<bd){bd=dd;best=w}});if(best){used[best.id]=1;m[i]=best.id;by[best.id]=i}});return{m:m,by:by}}
 function ahDet(h,w){var A=ahArr(),mt=ahMatch(),i=mt.by[w.id];if(i===undefined)return h;var a=A[i],st='<div><span>Ø Puls</span><b>'+(a.h?a.h+' bpm':'–')+'</b></div><div><span>Max. Puls</span><b>'+(a.x?a.x+' bpm':'–')+'</b></div><div><span>Energie</span><b>'+(a.k?a.k+' kcal':'–')+'</b></div>',card='<div class="c"><div class="lb">Apple Watch</div><div class="st" style="margin-top:6px">'+st+'</div></div>',ix=h.indexOf('<div class="c"><div class="xh">');return ix>-1?h.slice(0,ix)+card+h.slice(ix):h+card}
@@ -2840,7 +2841,7 @@ function stepsCard(day,week){var o=ahStep(day),v=o.v,g=+S.prof.sg||10000,h='<div
 if(o.hk)return h+'<div class="m" style="margin-top:8px">Aus Apple Health importiert.</div></div>';
 return h+'<label>Schritte eintragen</label><div class="r"><input class="sti" type="number" inputmode="numeric" min="0" placeholder="z. B. 8500" value="'+(v||'')+'"><button class="b" data-a="stsave" data-day="'+day+'" style="flex:0 0 auto;padding:12px 18px">Speichern</button></div><div class="m" style="margin-top:6px">Oder importiere deinen Health-Export, dann kommen die Schritte automatisch.</div></div>'}
 /* ---- Tägliche Erinnerung ---- */
-function ahRem(){if(S.rm===0||AHP.open)return'';var td=lYmd(new Date());if(S.ri&&lYmd(new Date(S.ri))===td)return'';if(S.rs&&Date.now()<S.rs)return'';var dn=S.ri?Math.floor((new Date(td+'T12:00:00')-new Date(lYmd(new Date(S.ri))+'T12:00:00'))/864e5):0;
+function ahRem(){if(S.rm===0||AHP.open||(hkNative()&&S.hkOn))return'';var td=lYmd(new Date());if(S.ri&&lYmd(new Date(S.ri))===td)return'';if(S.rs&&Date.now()<S.rs)return'';var dn=S.ri?Math.floor((new Date(td+'T12:00:00')-new Date(lYmd(new Date(S.ri))+'T12:00:00'))/864e5):0;
 return'<div class="c ahrm"><div class="lb">Health-Import</div><div class="m">'+(S.ri?'Dein letzter Import war '+(dn===1?'gestern':'vor '+dn+' Tagen')+'.':'Du hast noch keine Health-Daten importiert.')+' Importiere heute neu, damit Schlaf, Erholung und Aktivität aktuell sind.</div><div class="r"><button class="b" data-a="ahf">Jetzt importieren</button><button class="o" data-a="ahl">Später</button></div></div>'}
 function ahRemBtn(){return'<div class="r"><button class="o" data-a="ahr">Tägliche Erinnerung: '+(S.rm===0?'aus':'an')+'</button></div>'}
 /* ---- Anzeige ---- */
@@ -2851,7 +2852,7 @@ var h='<div class="tsh"><span>Apple Workouts</span></div><div class="c"><div cla
 h+='<div class="m" style="margin-top:8px">Krafttrainings auf der Watch: '+ks+' · davon in der App: '+(ks-miss.length)+(miss.length?' · <b>fehlen in der App: '+miss.length+'</b> ('+miss.slice(-4).map(function(a){return ahDay(a.t)}).join(', ')+(miss.length>4?' …':'')+')':'')+'</div></div>';
 var lst=A.slice().reverse(),shown=lst.slice(0,AHP.n);h+='<div class="c ahw">'+shown.map(function(a){var i=A.indexOf(a),k=ahCat(a.y),st=k==='k'?(mt.m[i]!==undefined?'<em class="ahb ok">in der App</em>':'<em class="ahb no">fehlt</em>'):'';return'<div class="ahr"><i class="ahd" style="background:'+(k==='k'?'var(--acc)':k==='c'?'#38bdf8':'var(--mut)')+'"></i><div class="ahm"><b>'+esc(ahLbl(a.y))+'</b><span>'+ahDay(a.t)+' · '+Math.round(a.m)+' Min'+(a.s?' · '+String(a.s).replace('.',',')+' km':'')+'</span></div><div class="ahn"><span>'+(a.h?'Ø '+a.h+(a.x?' · Max '+a.x:'')+' bpm':'kein Puls')+'</span><span>'+(a.k?a.k+' kcal':'')+'</span></div>'+st+'</div>'}).join('')+(lst.length>AHP.n?'<div class="r"><button class="o" data-a="ahm">Mehr anzeigen</button></div>':AHP.n>3&&lst.length>3?'<div class="r"><button class="o" data-a="ahm">Weniger anzeigen</button></div>':'')+'<div class="m" style="margin-top:8px">Cardio-Workouts (Laufen, Radfahren, Schwimmen …) fließen in die Muskel-Erholung ein, Krafttrainings zählen nur über deine eingetragenen Sätze.</div></div>';return h}
 function ahBars(l,goal,col){var n=l.length,mx=goal?Math.max(goal*1.5,1):1,sum=0,cn=0,i;l.forEach(function(v){if(v>mx)mx=v;if(v!==null&&v>0){sum+=v;cn++}});var av=cn?sum/cn:0,bars='',step=n<=14?1:n<=30?5:15;
-l.forEach(function(v,j){var k=slKey(n-1-j),d=new Date(k+'T12:00:00'),lb=(n-1-j)%step===0||j===n-1?(n<=14?WDN[(d.getDay()+6)%7].slice(0,2):d.getDate()+'.'+(d.getMonth()+1)+'.'):'';bars+='<div><div class="bw"><i style="height:'+(v?Math.max(3,v/mx*100):2)+'%;'+(goal&&v>=goal?'background:#34d399':v?(col?'background:'+col:''):'opacity:.25')+'" title="'+(v?nf(Math.round(v)):'')+'"></i></div><em>'+lb+'</em></div>'});
+l.forEach(function(v,j){var k=slKey(n-1-j),d=new Date(k+'T12:00:00'),lb=(n-1-j)%step===0||j===n-1?(n<=14?WDN[(d.getDay()+6)%7].slice(0,2):d.getDate()+'.'+(d.getMonth()+1)+'.'):'';bars+='<div><div class="bw"><i style="height:'+(v?Math.max(3,v/mx*100):2)+'%;'+(goal&&v>=goal?'background:#34d399':v?(col?'background:'+col:''):'opacity:.25')+'" title="'+(v?nf(Math.round(v)):'')+'"></i></div><em>'+(lb?'<span'+(j===n-1&&n>14?' style="left:auto;right:0;transform:none"':'')+'>'+lb+'</span>':'')+'</em></div>'});
 return'<div class="ahcw"><div class="ahc'+(n>14?' thin':'')+'">'+bars+'</div>'+(av?'<u class="ahav" style="--p:'+(av/mx).toFixed(3)+'"></u>':'')+'</div>'+(av?'<div class="m" style="text-align:center">Gestrichelt: Ø '+nf(Math.round(av))+(goal?' · Grün = '+nf(goal)+' erreicht':'')+'</div>':'')}
 function ahLine(l,c){var pts=[],mn=1e18,mx=-1e18;l.forEach(function(v){if(v!==null){if(v<mn)mn=v;if(v>mx)mx=v}});if(mn>mx)return'';var sp=mx-mn||1,n=l.length;l.forEach(function(v,j){if(v!==null)pts.push([j*300/(n-1||1),110-(v-mn)/sp*95])});
 return'<svg viewBox="0 0 300 120" class="ahln" preserveAspectRatio="none"><polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')+'" fill="none" stroke="var(--acc)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>'+(n<=45?pts.map(function(p){return'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.4" fill="var(--acc)"/>'}).join(''):'')+'</svg><div class="row2 m"><span>'+hlFmt(c,mn)+'</span><span>'+hlFmt(c,mx)+'</span></div>'}
@@ -2866,7 +2867,7 @@ var a7=hlAvg(l7),a30=hlAvg(l30),fm=function(v){return v===null?'–':nf(Math.rou
 var h=stepsCard(today(),0)+'<div class="c"><div class="st" style="margin-top:0"><div><span>Letzter Tag</span><b>'+fm(last)+'</b></div><div><span>Ø 7 Tage</span><b>'+fm(a7)+'</b></div><div><span>Ø 30 Tage</span><b>'+fm(a30)+'</b></div></div></div>';
 h+='<div class="c"><div class="row2"><div class="lb">Schritte</div></div><div class="ijs" style="margin:6px 0 4px">'+[14,30,90].map(function(v){return'<button class="'+(AHP.sr===v?'on':'')+'" data-a="ahrg" data-v="'+v+'">'+v+' Tage</button>'}).join('')+'</div>'+ahBars(hlVals('steps',AHP.sr),10000)+'</div>';
 h+=hlSection('a');h+=ahSection();
-h+='<div class="c"><div class="lb">Health-Export importieren</div><div class="m">Health-App › Profilbild oben rechts › Alle Gesundheitsdaten exportieren. Export in „Dateien“ sichern und hier die export.zip wählen. Das Lesen großer Dateien dauert bis zu einer Minute. Der Import lässt sich rückgängig machen.</div><div class="r"><button class="b" data-a="ahf">Health-Export (ZIP)</button></div>'+(impHas()?'<div class="r"><button class="o" data-a="impundo">Letzten Import rückgängig machen</button></div>':'')+ahRemBtn()+'<div class="m" style="margin-top:6px">Die Erinnerung erscheint oben in der App, bis du heute importiert hast. Eine Push-Nachricht ist bei einer Web-App nicht möglich.</div></div>';return h}
+h+=cbCard();h+='<div class="c"><div class="lb">Health-Export importieren</div><div class="m">Health-App › Profilbild oben rechts › Alle Gesundheitsdaten exportieren. Export in „Dateien“ sichern und hier die export.zip wählen. Das Lesen großer Dateien dauert bis zu einer Minute. Der Import lässt sich rückgängig machen.</div><div class="r"><button class="b" data-a="ahf">Health-Export (ZIP)</button></div>'+(impHas()?'<div class="r"><button class="o" data-a="impundo">Letzten Import rückgängig machen</button></div>':'')+ahRemBtn()+'<div class="m" style="margin-top:6px">Die Erinnerung erscheint oben in der App, bis du heute importiert hast. Eine Push-Nachricht ist bei einer Web-App nicht möglich.</div></div>';return h}
 (function(){var inp=document.createElement('input');inp.type='file';inp.id='fah';inp.hidden=true;document.body.appendChild(inp);
 inp.addEventListener('change',function(){var f=inp.files&&inp.files[0];if(f)ahRun(f).then(function(){inp.value=''},function(){inp.value=''})});
 window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="ahf"],[data-a="ahx"],[data-a="ahm"],[data-a="ahl"],[data-a="ahr"],[data-a="ahk"],[data-a="ahrg"],[data-a="ahdr"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();var a=b.getAttribute('data-a');
@@ -2890,7 +2891,7 @@ function ijTile(){var l=ijArr();return'<div class="ttl" data-a="ijv"><div class=
 function ijBan(){var l=ijArr();if(!l.length)return'';var h='<div class="c ijb"><div class="lb">Verletzung</div><div class="m">'+l.map(function(j){var a=ijArea(j.a);return a?'<b>'+esc(a.n)+'</b> ('+IJS[j.s-1]+', seit '+ijDays(j.d)+' Tg.)':''}).join(' · ')+'</div>';
 var names=[],lab='';if(V.s==='w'&&S.active){names=S.active.ex.map(function(e){return e.n}).filter(function(n){return ijHit(n)});lab='In diesem Training betroffen'}else{var np=nextPlan();if(np){names=ijPlanHits(np);lab='Im nächsten Plan ('+esc(np.n)+') betroffen'}}
 if(names.length)h+='<div class="m" style="margin-top:6px">'+lab+': <b>'+names.map(esc).join(', ')+'</b></div><div class="r"><button class="o" data-a="ija">Ersatz anzeigen</button><button class="o" data-a="ijv">Anpassen</button></div>';else h+='<div class="m" style="margin-top:6px">Hier ist keine Übung betroffen.</div><div class="r"><button class="o" data-a="ijv">Anpassen</button></div>';return h+'</div>'}
-function ijMark(){if(!ijArr().length)return;var sel=V.s==='w'?'.ex .n':'';var tag=function(el,n){if(!el||el.querySelector('.ijw'))return;var x=ijHit(n);if(!x)return;var s=document.createElement('span');s.className='ijw s'+x.s;s.textContent='⚠ '+x.a.n.split(' / ')[0];el.appendChild(s)};
+function ijMark(){if(!ijArr().length)return;var sel=V.s==='w'?'.ex .n':'';var tag=function(el,n){if(!el||el.querySelector('.ijw'))return;var x=ijHit(n);if(!x)return;var lo=x.w<.6&&x.s<3,s=document.createElement('span');s.className='ijw s'+x.s+(lo?' lo':'');s.textContent=(lo?'leicht · ':'⚠ ')+x.a.n.split(' / ')[0];el.appendChild(s)};
 if(sel)document.querySelectorAll(sel).forEach(function(el){tag(el,el.firstChild&&el.firstChild.nodeType===3?el.firstChild.nodeValue:el.textContent)});
 document.querySelectorAll('.pkn[data-n]').forEach(function(el){tag(el.querySelector('span'),el.getAttribute('data-n'))})}
 function ijView(){var l=ijArr(),h='<div class="mrh"><div class="mrt"><h2>Verletzung</h2><span>Training anpassen</span></div><button class="mrx" data-a="mrx">×</button></div>';
@@ -2911,14 +2912,18 @@ else if(a==='ijn'){S.inj.push({a:b.getAttribute('data-id'),s:2,d:lYmd(new Date()
 function rdClamp(v){return Math.max(0,Math.min(100,v))}
 function rdRecent(k,n){var l=hlVals(k,n).filter(function(v){return v!==null});return l.length?hlAvg(l):null}
 function rdBase(k){var l=hlVals(k,30).filter(function(v){return v!==null});return l.length>=5?hlAvg(l):null}
+function rdLoad(){var now=Date.now(),a3=0,a28=0,n28=0,i,cut3=lYmd(new Date(now-3*864e5)),cut28=lYmd(new Date(now-31*864e5)),cut3e=lYmd(new Date(now-3*864e5));
+S.w.forEach(function(w){if(!(typeof w.t==='number'))return;var sets=0;w.ex.forEach(function(e){sets+=hardSets(e)});if(w.d>cut3e)a3+=sets;else if(w.d>=cut28){a28+=sets;n28++}});
+if(n28<5)return null;var per3=a28/28*3,r=per3?a3/per3:1,sc=r<=1.2?100:rdClamp(100-(r-1.2)*60);return{k:'ld',n:'Trainingslast',w:.15,sc:Math.max(25,sc),t:'3 Tage: '+a3+' Sätze, normal ca. '+Math.round(per3)}}
 function rdModel(){var c=[],td=lYmd(new Date()),s=S.sl&&S.sl[td]>0?S.sl[td]:null;
-if(s!==null)c.push({k:'sl',n:'Schlaf',w:.35,sc:rdClamp((s-4)/3.5*100),t:slFmt(s)+' letzte Nacht'});
-var hr=rdRecent('hrv',3),hb=rdBase('hrv');if(hr!==null&&hb){var r=hr/hb;c.push({k:'hrv',n:'HRV',w:.2,sc:r>=1?100:rdClamp(25+(r-.75)/.25*75),t:(r>=1?'+':'')+Math.round((r-1)*100)+' % zu deinem Ø'})}
-var rr=rdRecent('rhr',3),rb=rdBase('rhr');if(rr!==null&&rb){var d=rr-rb;c.push({k:'rhr',n:'Ruhepuls',w:.15,sc:d<=0?100:rdClamp(100-80*d/7),t:(d>=0?'+':'')+Math.round(d)+' bpm zu deinem Ø'})}
+if(s!==null)c.push({k:'sl',n:'Schlaf',w:.3,sc:rdClamp((s-4)/3.5*100),t:slFmt(s)+' letzte Nacht'});
+var hr=rdRecent('hrv',3),hb=rdBase('hrv');if(hr!==null&&hb){var r=hr/hb;c.push({k:'hrv',n:'HRV',w:.18,sc:r>=1?100:rdClamp(25+(r-.75)/.25*75),t:(r>=1?'+':'')+Math.round((r-1)*100)+' % zu deinem Ø'})}
+var rr=rdRecent('rhr',3),rb=rdBase('rhr');if(rr!==null&&rb){var d=rr-rb;c.push({k:'rhr',n:'Ruhepuls',w:.12,sc:d<=0?100:rdClamp(100-80*d/7),t:(d>=0?'+':'')+Math.round(d)+' bpm zu deinem Ø'})}
 var o=null;try{o=rcModel()}catch(e){}var np=null;try{np=nextPlan()}catch(e){}
 if(o&&Object.keys(o).length){var ks=Object.keys(o),sum=0;ks.forEach(function(k){sum+=o[k].pct});var avg=sum/ks.length,ms=avg,lab='Ø aller Muskeln '+Math.round(avg)+' % erholt';
 if(np&&np.e&&np.e.length){var ws={},tw=0,ac=0;np.e.forEach(function(n){mOf(n).forEach(function(m){if(m[1]>=.3&&RCP[m[0]]){ws[m[0]]=Math.max(ws[m[0]]||0,m[1])}})});Object.keys(ws).forEach(function(k){var p=o[k]?o[k].pct:100;ac+=p*ws[k];tw+=ws[k]});if(tw){ms=ac/tw;lab=np.n+': Ø '+Math.round(ms)+' % erholt'}}
-c.push({k:'mu',n:'Muskeln',w:.3,sc:rdClamp((ms-30)/70*100),t:lab})}
+c.push({k:'mu',n:'Muskeln',w:.25,sc:rdClamp((ms-30)/70*100),t:lab})}
+var ld=rdLoad();if(ld)c.push(ld);
 if(!c.length)return null;var tw2=0,ts=0;c.forEach(function(x){tw2+=x.w;ts+=x.w*x.sc});var sc=Math.round(ts/tw2),col,lb,tip;
 if(sc>=75){col='#34d399';lb='Grün';tip='Voll durchziehen. Dein Körper ist bereit.'}else if(sc>=50){col='#fbbf24';lb='Gelb';tip='Etwas leichter: ca. 10 % weniger Gewicht oder 1 Satz weniger pro Übung.'}else{col='#f87171';lb='Rot';tip='Heute lieber Pause, Spaziergang oder leichtes Mobility-Training.'}
 return{sc:sc,col:col,lb:lb,tip:tip,c:c,miss:!c.some(function(x){return x.k==='sl'||x.k==='hrv'||x.k==='rhr'})}}
@@ -2928,7 +2933,7 @@ h+='<div class="c rdb"><div class="rdr big" style="--v:'+m.sc+';--c:'+m.col+'"><
 h+='<div class="c"><div class="lb">Was einfließt</div>'+m.c.map(function(x){var cl=x.sc>=75?'#34d399':x.sc>=50?'#fbbf24':'#f87171';return'<div class="rdk"><div class="row2"><b>'+esc(x.n)+'</b><span class="m">'+esc(x.t)+'</span></div><div class="pbar"><i style="width:'+Math.max(4,Math.round(x.sc))+'%;background:'+cl+'"></i></div></div>'}).join('')+'</div>';
 if(m.miss)h+='<div class="c m">Für Schlaf, HRV und Ruhepuls importiere deinen Health-Export im Tab Aktivität oder Schlaf. Bis dahin zählt nur die Muskel-Erholung.</div>';
 var inj=ijArr().length?'<div class="c m">Eine eingetragene Verletzung ist hier nicht eingerechnet. Sie wirkt sich über die Muskel-Erholung und die Warnungen im Training aus.</div>':'';
-h+=inj+'<div class="m" style="padding:0 6px">Gewichtung: Schlaf 35 %, Muskeln 30 %, HRV 20 %, Ruhepuls 15 %. Fehlende Werte zählen nicht. Das ist eine Orientierung, keine Diagnose. Dein Körpergefühl hat Vorrang.</div>';ovShow(h)}
+h+=inj+'<div class="m" style="padding:0 6px">Gewichtung: Schlaf 30 %, Muskeln 25 %, Trainingslast 15 %, HRV 18 %, Ruhepuls 12 %. Fehlende Werte zählen nicht. Das ist eine Orientierung, keine Diagnose. Dein Körpergefühl hat Vorrang.</div>';ovShow(h)}
 function rdWarm(k){var A=S.active,ex=A&&A.ex[k];if(!ex)return;var w=0,i;for(i=0;i<ex.s.length;i++){if(+ex.s[i][0]>0){w=+ex.s[i][0];break}}
 if(!w){var l=last(ex.n);if(l)l.s.forEach(function(x){if(+x[0]>w)w=+x[0]})}
 if(!w){toast('Trage zuerst das Arbeitsgewicht ein');return}
@@ -2938,6 +2943,73 @@ sc.forEach(function(p){var kg=Math.round(w*p[0]/2.5)*2.5;if(bar)kg=Math.max(20,k
 if(!out.length){toast('Das Arbeitsgewicht ist so niedrig, dass du dich nicht extra aufwärmen musst');return}
 ex.wu=out;save();render()}
 window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="rdv"],[data-a="wua"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();if(b.getAttribute('data-a')==='rdv')rdView();else rdWarm(+b.getAttribute('data-k'))},true);
+
+/* ---- Backup-Erinnerung + Kalorienbilanz ---- */
+function bkJson(){var c=JSON.parse(JSON.stringify(S));delete c.img;return JSON.stringify(c)}
+function bkDays(){return S.bk?Math.floor((Date.now()-S.bk)/864e5):null}
+function bkRem(){if(S.bkm===0||S.w.length<3)return'';if(S.bks&&Date.now()<S.bks)return'';var d=bkDays();if(d!==null&&d<7)return'';
+return'<div class="c ahrm"><div class="lb">Backup</div><div class="m">'+(d===null?'Du hast noch kein Backup gespeichert.':'Dein letztes Backup war vor '+d+' Tagen.')+' Sichere deine Daten, damit nichts verloren geht, falls das iPhone oder der Browser den Speicher löscht.</div><div class="r"><button class="b" data-a="bkn">Backup sichern</button><button class="o" data-a="bkl">Später</button></div></div>'}
+function bkCard(){var d=bkDays();return'<div class="c"><div class="lb">Backup</div><div class="m">'+(d===null?'Noch kein Backup gespeichert.':'Letztes Backup: '+(d===0?'heute':d===1?'gestern':'vor '+d+' Tagen')+'.')+' Die Datei enthält alle Trainings, Pläne, Essen, Schlaf und Health-Werte, aber keine Fotos. Wiederherstellen kannst du sie unter Einstellungen.</div><div class="r"><button class="b" data-a="bkn">Jetzt sichern</button></div><div class="r"><button class="o" data-a="bkr">Wöchentliche Erinnerung: '+(S.bkm===0?'aus':'an')+'</button></div></div>'}
+function bkSave(){fileOut('gym-tracker-backup-'+today()+'.json',bkJson(),'application/json',function(){S.bk=Date.now();delete S.bks;save();toast('Backup gespeichert');render()})}
+/* Kalorienbilanz */
+function kbDay(d){var f=S.food&&S.food[d],has=!!(f&&f.items&&f.items.length),act=S.hm&&S.hm.kcal&&S.hm.kcal[d],bas=S.hm&&S.hm.bkcal&&S.hm.bkcal[d];return{ine:has?dsum(d).kcal:null,act:act>0?act:null,bas:bas>0?bas:null}}
+function kbCard(){var d=FD||today(),o=kbDay(d);if(!o.act&&!o.bas)return'';var g=goals(),bas=o.bas||g.bmr||0,est=!o.bas;if(!bas&&!o.act)return'';var out=Math.round(bas+(o.act||0)),ine=o.ine,h='<div class="c kbc"><div class="lb">Energiebilanz</div><div class="st" style="margin-top:6px"><div><span>Gegessen</span><b>'+(ine===null?'–':nf(Math.round(ine))+' kcal')+'</b></div><div><span>Verbrauch</span><b>'+nf(out)+' kcal</b></div><div><span>Bilanz</span><b>'+(ine===null?'–':(ine-out>0?'+':'')+nf(Math.round(ine-out))+' kcal')+'</b></div></div>';
+if(ine!==null){var bl=ine-out,gl=S.prof&&S.prof.gl||'keep',lo=gl==='cut'?-700:gl==='bulk'?150:-150,hi=gl==='cut'?-250:gl==='bulk'?500:150,tx=bl<lo?'Unter deinem Zielbereich':bl>hi?'Über deinem Zielbereich':'Im Zielbereich';h+='<div class="sb" style="margin-top:10px"><i style="width:'+Math.min(100,Math.round(ine/Math.max(out,1)*100))+'%"></i></div><div class="m" style="margin-top:6px">'+tx+' ('+(gl==='cut'?'Abnehmen':gl==='bulk'?'Aufbauen':'Gewicht halten')+')'+(d===today()?'. Der Tag ist noch nicht vorbei.':'.')+'</div>'}
+var sum=0,n=0,i;for(i=1;i<=7;i++){var k=lYmd(new Date(Date.now()-i*864e5)),x=kbDay(k);if(x.ine!==null&&x.act){sum+=x.ine-(x.bas||g.bmr||0)-x.act;n++}}
+if(n>=3)h+='<div class="m" style="margin-top:6px">Ø der letzten Tage mit Daten ('+n+'): '+(sum/n>0?'+':'')+nf(Math.round(sum/n))+' kcal pro Tag.</div>';
+h+='<div class="m" style="margin-top:6px">Verbrauch = '+(est?'geschätzter Grundumsatz':'Ruheenergie')+' + aktive Energie aus Health.</div></div>';return h}
+function bkPlace(){var mn=document.getElementById('main');if(!mn)return;if(V.s==='f'){var c=mn.children[1];if(c&&!mn.querySelector('.kbc')){var h=kbCard();if(h)c.insertAdjacentHTML('afterend',h)}}else if(V.s==='p'&&!mn.querySelector('.bkc')){mn.insertAdjacentHTML('beforeend',bkCard().replace('class="c"','class="c bkc"')+ntCard())}}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="bkn"],[data-a="bkl"],[data-a="bkr"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();var a=b.getAttribute('data-a');
+if(a==='bkn')bkSave();else if(a==='bkl'){S.bks=Date.now()+2*864e5;save();render()}else{S.bkm=S.bkm===0?1:0;save();render()}},true);
+
+/* ---- Native iOS (Capacitor): Health-Sync, Erinnerungen, Dateien ---- */
+function hkNative(){try{return!!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())}catch(e){return false}}
+function hkP(n){try{return Capacitor.registerPlugin(n)}catch(e){return null}}
+var HK={busy:0,M:[['steps','steps','sum'],['distance','dist','sum'],['calories','kcal','sum'],['basalCalories','bkcal','sum'],['flightsClimbed','fl','sum'],['exerciseTime','exm','sum'],['distanceCycling','cdist','sum'],['heartRate','hr','average'],['restingHeartRate','rhr','average'],['heartRateVariability','hrv','average'],['oxygenSaturation','spo2','average'],['respiratoryRate','resp','average'],['vo2Max','vo2','average']]};
+function hkType(s){s=String(s||'').toLowerCase().replace(/[^a-z]/g,'');var m=[['functional','FunctionalStrengthTraining'],['strength','TraditionalStrengthTraining'],['weight','TraditionalStrengthTraining'],['run','Running'],['walk','Walking'],['hik','Hiking'],['cycl','Cycling'],['bik','Cycling'],['swim','Swimming'],['row','Rowing'],['ellip','Elliptical'],['stair','StairClimbing'],['hiit','HighIntensityIntervalTraining'],['highintensity','HighIntensityIntervalTraining'],['yoga','Yoga'],['pilates','Pilates'],['cardio','MixedCardio'],['mixed','MixedCardio'],['core','CoreTraining'],['dance','Dance'],['box','Boxing'],['jumprope','JumpRope'],['cooldown','Cooldown'],['flex','Flexibility'],['mind','MindAndBody']],i;for(i=0;i<m.length;i++)if(s.indexOf(m[i][0])>-1)return m[i][1];return'Other'}
+function hkWc(iso){var d=new Date(iso);return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds())}
+function hkVal(k,v,u){v=+v;if(!isFinite(v))return null;if(k==='dist'||k==='cdist'){var us=String(u||'').toLowerCase();if(us==='km'||us==='kilometer')return v;if(us==='mi'||us==='mile')return v*1.609344;return v>300?v/1000:/^(m|meter|metre)$/.test(us)?v/1000:v}
+if(k==='spo2'&&v<=1)v*=100;return v}
+async function hkSync(q){if(HK.busy)return;var H=hkP('Health');if(!H){if(!q)toast('Health-Plugin nicht gefunden');return}HK.busy=1;if(!q)toast('Health wird synchronisiert …');
+try{var read=HK.M.map(function(m){return m[0]}).concat(['sleep','workouts']);await H.requestAuthorization({read:read,write:[]});
+var now=new Date(),from=new Date(now.getTime()-(S.hks?4:90)*864e5).toISOString(),to=now.toISOString(),P={cut:lYmd(new Date(now.getTime()-400*864e5)),wcut:lYmd(new Date(now.getTime()-730*864e5)),sa:{},sb:{},ac:{},wk:[],nr:0,nw:0,cw:null};
+for(var i=0;i<HK.M.length;i++){var m=HK.M[i];try{var r=await H.queryAggregated({dataType:m[0],startDate:from,endDate:to,bucket:'day',aggregation:m[2]});(r&&r.samples||[]).forEach(function(s){var v=hkVal(m[1],s.value,s.unit);if(v===null||(m[2]==='average'&&v<=0))return;ahAcc(P,m[1],lYmd(new Date(s.startDate)),'hk',v)})}catch(e){}}
+try{var sr=await H.readSamples({dataType:'sleep',startDate:from,endDate:to,limit:5000,ascending:true});(sr&&sr.samples||[]).forEach(function(s){var parts=s.stages&&s.stages.length?s.stages.map(function(g){return{st:g.stage,a:g.startDate,b:g.endDate}}):[{st:s.sleepState,a:s.startDate,b:s.endDate}];parts.forEach(function(p){var inb=p.st==='inBed';if(!inb&&!/^(asleep|rem|deep|light|core|unspecified)$/i.test(p.st||''))return;var a=hkWc(p.a),b=hkWc(p.b);if(!(b>a))return;var nk=ahYmd(b+216e5);if(nk<P.cut)return;var g=inb?P.sb:P.sa;(g[nk]=g[nk]||[]).push([a,b])})})}catch(e){}
+try{var wr=await H.queryWorkouts({startDate:from,endDate:to,limit:200,ascending:true});var ws=(wr&&wr.workouts||[]),hc=0;for(var j=ws.length-1;j>=0;j--){var w=ws[j],t=Date.parse(w.startDate),e=Date.parse(w.endDate),W={y:hkType(w.workoutType),t:t,e:e,d:lYmd(new Date(t)),m:(+w.duration||(e-t)/1000)/60,k:+w.totalEnergyBurned||0,s:(+w.totalDistance||0)/1000,h:0,x:0};
+if(hc<30){hc++;try{var hr=await H.readSamples({dataType:'heartRate',startDate:w.startDate,endDate:w.endDate,limit:600});var vs=(hr&&hr.samples||[]).map(function(x){return+x.value}).filter(function(x){return x>0});if(vs.length){W.h=vs.reduce(function(a,b){return a+b},0)/vs.length;W.x=Math.max.apply(0,vs)}}catch(e2){}}
+ahFin(P,W)}}catch(e){}
+S.hkOn=1;S.hks=lYmd(now);S.hkt=Date.now();ahApply(P,q);save();if(!q)toast('Health synchronisiert')}
+catch(e){if(!q)toast('Health-Sync fehlgeschlagen: '+(e&&e.message||e))}
+HK.busy=0;if(typeof render==='function')render()}
+function hkCard(){if(!hkNative())return'';var t=S.hkt?new Date(S.hkt):null;return'<div class="c"><div class="lb">Apple Health</div><div class="m">'+(S.hkOn?'Verbunden. Die App holt Schlaf, Herzwerte, Aktivität und Workouts automatisch beim Öffnen.'+(t?' Zuletzt: '+t.getHours()+':'+String(t.getMinutes()).padStart(2,'0')+' Uhr am '+t.getDate()+'.'+(t.getMonth()+1)+'.':''):'Verbinde die App mit Apple Health, dann brauchst du keinen Export mehr.')+'</div><div class="r"><button class="b" data-a="hks">'+(S.hkOn?'Jetzt synchronisieren':'Mit Health verbinden')+'</button></div></div>'}
+/* Erinnerungen */
+function ntCard(){if(!hkNative())return'';return'<div class="c"><div class="lb">Erinnerungen</div><div class="r"><button class="o" data-a="ntd">Tägliche Trainings-Erinnerung: '+(S.ntd?'an':'aus')+'</button></div>'+(S.ntd?'<label>Uhrzeit</label><input class="pi" type="time" data-nt="t" value="'+(S.ntt||'18:30')+'">':'')+'<div class="r"><button class="o" data-a="ntb">Wöchentliches Backup (sonntags 10 Uhr): '+(S.ntb?'an':'aus')+'</button></div></div>'}
+async function ntSet(){var N=hkP('LocalNotifications');if(!N)return;try{if(S.ntd||S.ntb){var p=await N.requestPermissions();if(p&&p.display&&p.display!=='granted'){S.ntd=0;S.ntb=0;save();render();toast('Mitteilungen sind in den iOS-Einstellungen ausgeschaltet');return}}
+await N.cancel({notifications:[{id:1},{id:2}]});var l=[],tm=String(S.ntt||'18:30').split(':');
+if(S.ntd)l.push({id:1,title:'Gym-Tracker',body:'Zeit fürs Training. Schau auf deine Tagesform.',schedule:{on:{hour:+tm[0]||18,minute:+tm[1]||0},repeats:true,allowWhileIdle:true}});
+if(S.ntb)l.push({id:2,title:'Backup',body:'Sichere deine Daten mit einem Tipp im Profil.',schedule:{on:{weekday:1,hour:10,minute:0},repeats:true,allowWhileIdle:true}});
+if(l.length)await N.schedule({notifications:l})}catch(e){toast('Erinnerung konnte nicht gesetzt werden')}}
+/* Dateien teilen */
+function fileOut(fn,txt,mime,ok){if(!hkNative())return fileOut0(fn,txt,mime,ok);var F=hkP('Filesystem'),Sh=hkP('Share');if(!F||!Sh)return fileOut0(fn,txt,mime,ok);
+F.writeFile({path:fn,data:txt,directory:'CACHE',encoding:'utf8'}).then(function(r){return Sh.share({title:fn,url:r.uri}).then(function(){if(ok)ok()})}).catch(function(e){if(e&&/cancel/i.test(String(e.message||e)))return;fileOut0(fn,txt,mime,ok)})}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="hks"],[data-a="ntd"],[data-a="ntb"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();var a=b.getAttribute('data-a');
+if(a==='hks')hkSync(0);else{if(a==='ntd')S.ntd=S.ntd?0:1;else S.ntb=S.ntb?0:1;save();render();ntSet()}},true);
+document.addEventListener('change',function(e){var t=e.target;if(t&&t.getAttribute&&t.getAttribute('data-nt')==='t'){S.ntt=t.value||'18:30';save();ntSet()}},true);
+if(hkNative()){var hkAuto=function(){if(S.hkOn&&(!S.hkt||Date.now()-S.hkt>15*60e3))hkSync(1)};setTimeout(hkAuto,1500);document.addEventListener('visibilitychange',function(){if(!document.hidden)hkAuto()})}
+/* ---- Kurzbefehl-Import über die Zwischenablage ---- */
+function cbCard(){return'<div class="c"><div class="lb">Kurzbefehl-Import</div><div class="m">Dein Kurzbefehl kopiert die Health-Werte. Hier tippen, dann werden nur neue Werte übernommen.'+(S.cbt?' Zuletzt: '+new Date(S.cbt).toLocaleString('de-DE',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'}):'')+'</div><div class="r"><button class="b" data-a="cbi">Aus Zwischenablage importieren</button></div></div>'}
+function cbParse(txt){var P={cut:'0000',wcut:'0000',sa:{},sb:{},ac:{},wk:[],nr:0,nw:0,cw:null},n=0,bad=0;
+String(txt||'').split(/\r?\n/).forEach(function(l){l=l.trim();if(!l)return;var f=l.split('|'),k=f[0].trim();
+if(k==='w'){var t=new Date(String(f[1]).trim().replace(' ','T')).getTime(),m=parseFloat(String(f[2]).replace(',','.'));if(!(t>0)||!(m>0)){bad++;return}ahFin(P,{y:hkType(f[3]),t:t,e:t+m*6e4,d:lYmd(new Date(t)),m:m,k:parseFloat(String(f[4]).replace(',','.'))||0,s:parseFloat(String(f[5]).replace(',','.'))||0,h:0,x:0});n++;return}
+var d=String(f[1]||'').trim(),v=parseFloat(String(f[2]).replace(',','.'));if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!isFinite(v)){bad++;return}
+if(k==='sleep'){if(v>=1&&v<=16){P.sa[d]=[[0,v*36e5]];n++}else bad++;return}
+if(!hlC(k)){bad++;return}if(k==='spo2'&&v<=1)v*=100;ahAcc(P,k,d,'kb',v);n++});
+return{P:P,n:n,bad:bad}}
+function cbRun(txt){var r=cbParse(txt);if(!r.n){toast('Keine passenden Daten in der Zwischenablage. Erst den Kurzbefehl ausführen.');return}ahApply(r.P);S.cbt=Date.now();save();if(r.bad)toast(r.bad+' Zeilen übersprungen')}
+function cbAsk(){var h='<div class="ttl">Zwischenablage einfügen</div><div class="m">Der direkte Zugriff wurde blockiert. Füge den Text hier ein.</div><textarea id="cbt" class="pi" rows="6" style="width:100%"></textarea><div class="r"><button class="b" data-a="cbgo">Importieren</button></div>';ovShow(h)}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="cbi"],[data-a="cbgo"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();
+if(b.getAttribute('data-a')==='cbgo'){var t=document.getElementById('cbt');cbRun(t&&t.value);return}
+if(navigator.clipboard&&navigator.clipboard.readText)navigator.clipboard.readText().then(cbRun).catch(cbAsk);else cbAsk()},true);
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>

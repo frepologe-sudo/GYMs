@@ -3329,13 +3329,17 @@ Promise.all(['w','k'].map(function(c){return fsCall('/users/'+a.uid+':runQuery',
 .then(function(l){return fsCommit(l[0].concat(l[1]))}).then(function(){return fbToken()}).then(function(t){return fbPost(fbIdUrl('delete'),{idToken:t.id})})
 .then(function(){fbSetAuth(null);sySetIdx(null);try{localStorage.removeItem('gt4_synct')}catch(e){}var c=document.querySelector('#mrv [data-a="mrx"]');if(c)c.click();toast('Konto und Cloud-Daten gelöscht. Deine Daten auf diesem Gerät bleiben.');render()})
 .catch(function(er){var m=fbErr(er.code||er.message);syMsg(m);toast(m);if(b){b.disabled=false;b.textContent='Endgültig löschen'}})}
-window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a^="sy"]');if(!b)return;var a=b.getAttribute('data-a');if(!/^sy(l|l2|i|r|f|n|o|d|dgo)$/.test(a))return;e.stopImmediatePropagation();e.preventDefault();
-if(a==='syl')syLoginView('i');else if(a==='syl2')syLoginView('r');else if(a==='syi')syDo(false);else if(a==='syr')syDo(true);
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a^="sy"]');if(!b)return;var a=b.getAttribute('data-a');if(!/^sy(l|l2|i|r|f|n|o|d|dgo|skip)$/.test(a))return;e.stopImmediatePropagation();e.preventDefault();
+if(a==='syskip'){var c0=document.querySelector('#mrv [data-a="mrx"]');if(c0)c0.click()}else if(a==='syl')syLoginView('i');else if(a==='syl2')syLoginView('r');else if(a==='syi')syDo(false);else if(a==='syr')syDo(true);
 else if(a==='syf'){var em=((document.getElementById('sye')||{}).value||'').trim();if(!em){syMsg('Bitte zuerst deine E-Mail eingeben.');return}fbPost(fbIdUrl('sendOobCode'),{requestType:'PASSWORD_RESET',email:em}).then(function(){syMsg('Falls ein Konto existiert, kommt gleich eine E-Mail zum Zurücksetzen.')}).catch(function(){syMsg('Falls ein Konto existiert, kommt gleich eine E-Mail zum Zurücksetzen.')})}
 else if(a==='syn')sySync(true);
 else if(a==='syo'){fbSetAuth(null);sySetIdx(null);toast('Abgemeldet. Deine Daten auf diesem Gerät bleiben.');render()}
 else if(a==='syd')ovShow('<div class="mrh"><div class="mrt"><h2>Konto löschen</h2><span>Konto und alle Cloud-Daten</span></div><button class="mrx" data-a="mrx">×</button></div><div class="c"><div class="m">Löscht dein Konto und alle in Firebase gespeicherten Daten endgültig. Die Daten auf diesem Gerät bleiben erhalten.</div><div class="m sym" id="sym" role="alert"></div><div class="r"><button class="b rld" data-a="sydgo">Endgültig löschen</button></div></div>');
 else if(a==='sydgo')syDelete()},true);
+
+;(function(){var K='gt4_welcome';function show(){try{if(fbAuth()||localStorage.getItem(K)||document.getElementById('mrv'))return;localStorage.setItem(K,'1')}catch(e){return}
+ovShow('<div class="mrh"><div class="mrt"><h2>Willkommen</h2><span>Gym-Tracker</span></div><button class="mrx" data-a="mrx">×</button></div><div class="c"><div class="m">Mit einem kostenlosen Konto hast du deine Daten auf allen Geräten und verlierst nichts beim Handywechsel. Ohne Konto bleibt alles nur auf diesem Gerät. Du kannst das jederzeit unter Profil › Konto &amp; Sync ändern.</div><div class="r"><button class="b" data-a="syl">Anmelden</button><button class="b" data-a="syl2">Registrieren</button></div><div class="r"><button class="o" data-a="syskip">Ohne Konto weiter</button></div></div>')}
+setTimeout(show,900)})();
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>

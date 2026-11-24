@@ -914,6 +914,8 @@ button.rld{background:linear-gradient(135deg,#b4232a,#7f1d1d)!important}
 .ex>div:not(.th){flex:1 1 auto;min-width:0}.ex>div:not(.th) .n{overflow-wrap:break-word}.ex>.exb,.ex>.rxb{flex:0 0 auto}@media (max-width:480px){.ex{display:grid!important;grid-template-columns:auto auto auto 1fr;column-gap:12px;row-gap:8px;align-items:center}.ex>.th{grid-row:1/3;align-self:start;width:46px}.ex>div:not(.th){grid-column:2/5;grid-row:1}.ex>.exb{grid-column:2;grid-row:2;justify-self:start;margin:0}.ex>.rxb{grid-column:3;grid-row:2;justify-self:start;margin:0}}@media (max-width:360px){.r:has(>[data-a=wua])>button{font-size:12px;padding-left:6px;padding-right:6px}}
 
 .syck{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;color:var(--mut);margin:12px 0 4px;text-transform:none;letter-spacing:0;font-weight:500}.syck input{flex:0 0 auto;width:20px;height:20px;margin-top:2px;accent-color:var(--acc)}.sym{min-height:18px;color:#fca5a5}
+
+#lk{position:fixed;inset:0;z-index:99999;background:var(--bg,#0b0b0f);display:flex;align-items:center;justify-content:center;padding:24px}.lkw{width:100%;max-width:340px;text-align:center}.lkw input{width:100%;text-align:center;font-size:24px;letter-spacing:8px;margin:12px 0}
 </style><style id="neonst">/* ===== Glas + Neon Finish ===== */
 body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(60px);opacity:.55}
 body::before{width:300px;height:300px;right:-90px;top:12%;background:radial-gradient(circle,rgba(var(--ar),.5),transparent 70%);animation:nOrb 14s ease-in-out infinite alternate}
@@ -1779,7 +1781,7 @@ var IC={u:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21
 function stripH2(h){return h.replace(/<h2[^>]*>[^<]*<\/h2>/g,'')}
 function sett(){var hero='<div class="shero"><i class="av2 big">'+esc(ini(S.name||'M'))+'</i><div class="shn"><label>Dein Name</label><input id="nm" value="'+esc(S.name)+'" maxlength="30" placeholder="Name"></div></div>';
 var body=sfld('Größe (cm)','h','z. B. 180')+sfld('Gewicht (kg)','w','z. B. 75')+sfld('Körperfett (%)','bf','optional')+sfld('Ziel-Gewicht (kg)','tw','optional')+sfld('Wochenziel','g','z. B. 4','numeric')+sfld('Schrittziel pro Tag','sg','10000','numeric');
-var h=hero+goalCard()+sec('Darstellung',IC.d,thBody()+fsBody())+sec('Konto &amp; Sync',IC.d,syBody())+sec('Erinnerungen &amp; Daten',IC.d,remBody())+sec('Datenschutz &amp; Löschen',IC.d,rlBody())+sec('Körper &amp; Ziele',IC.u,'<div class="sgr">'+body+'</div>')+sec('Ernährung',IC.t,foodFields())+sec('Training',IC.d,restBody())+sec('Siri &amp; Kurzbefehle',IC.d,kbBody())+'<div class="sec2">'+socSettings().replace(/<h2>Freunde<\/h2>/,'<div class="sh"><i>'+IC.s+'</i><b>Freunde &amp; Cloud</b></div>')+'</div>'+'<div class="sec2">'+exportCard().replace(/<h2>[^<]*<\/h2>/,'<div class="sh"><i>'+IC.x+'</i><b>Daten exportieren</b></div>')+'</div>'
+var h=hero+goalCard()+sec('Darstellung',IC.d,thBody()+fsBody())+sec('Konto &amp; Sync',IC.d,syBody())+sec('App-Sperre',IC.d,lkBody())+sec('Erinnerungen &amp; Daten',IC.d,remBody())+sec('Datenschutz &amp; Löschen',IC.d,rlBody())+sec('Körper &amp; Ziele',IC.u,'<div class="sgr">'+body+'</div>')+sec('Ernährung',IC.t,foodFields())+sec('Training',IC.d,restBody())+sec('Siri &amp; Kurzbefehle',IC.d,kbBody())+'<div class="sec2">'+socSettings().replace(/<h2>Freunde<\/h2>/,'<div class="sh"><i>'+IC.s+'</i><b>Freunde &amp; Cloud</b></div>')+'</div>'+'<div class="sec2">'+exportCard().replace(/<h2>[^<]*<\/h2>/,'<div class="sh"><i>'+IC.x+'</i><b>Daten exportieren</b></div>')+'</div>'
 +sec('Daten importieren',IC.i,'<div class="m">Lade hier den neuen Export aus Hevy hoch (Hevy: Profil → Einstellungen → Export &amp; Import Data). Neue Workouts kommen dazu, bekannte werden nicht doppelt angelegt.</div><div class="r"><button class="b" data-a="impw">Workouts importieren (CSV)</button></div><div class="r"><button class="o" data-a="impm">Körperdaten importieren (CSV)</button></div>'+(impHas()?'<div class="r"><button class="o" data-a="impundo">Letzten Import rückgängig machen</button></div>':''))+sec('Backup',IC.b,bkFile())+'<div class="sec2">'+admCard().replace(/<h2 id="admh">Admin<\/h2>/,'<div class="sh" id="admh"><i>'+IC.a+'</i><b>Admin</b></div>')+'</div>';return h}
 
 /* ===== Code-Update (Admin) ===== */
@@ -3340,6 +3342,59 @@ else if(a==='sydgo')syDelete()},true);
 ;(function(){var K='gt4_welcome';function show(){try{if(fbAuth()||localStorage.getItem(K)||document.getElementById('mrv'))return;localStorage.setItem(K,'1')}catch(e){return}
 ovShow('<div class="mrh"><div class="mrt"><h2>Willkommen</h2><span>Gym-Tracker</span></div><button class="mrx" data-a="mrx">×</button></div><div class="c"><div class="m">Mit einem kostenlosen Konto hast du deine Daten auf allen Geräten und verlierst nichts beim Handywechsel. Ohne Konto bleibt alles nur auf diesem Gerät. Du kannst das jederzeit unter Profil › Konto &amp; Sync ändern.</div><div class="r"><button class="b" data-a="syl">Anmelden</button><button class="b" data-a="syl2">Registrieren</button></div><div class="r"><button class="o" data-a="syskip">Ohne Konto weiter</button></div></div>')}
 setTimeout(show,900)})();
+
+/* App-Sperre per PIN (lokal, PBKDF2-Hash in gt4_lock; nicht Teil von Backup/Sync) */
+var LK={t:0,fail:0,until:0};try{var lf=JSON.parse(localStorage.getItem('gt4_lkf')||'{}');LK.fail=lf.f||0;LK.until=lf.u||0}catch(e){}
+function lkSv(){try{localStorage.setItem('gt4_lkf',JSON.stringify({f:LK.fail,u:LK.until}))}catch(e){}}
+function lkGet(){try{return JSON.parse(localStorage.getItem('gt4_lock')||'null')}catch(e){return null}}
+function lkHash(pin,salt){var enc=new TextEncoder();return crypto.subtle.importKey('raw',enc.encode(pin),'PBKDF2',false,['deriveBits']).then(function(k){return crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:100000,hash:'SHA-256'},k,256)}).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2)}).join('')})}
+function lkSet(pin){var salt=String(Math.random()).slice(2)+Date.now();return lkHash(pin,salt).then(function(h){localStorage.setItem('gt4_lock',JSON.stringify({s:salt,h:h}))})}
+function lkCheck(pin){var l=lkGet();if(!l)return Promise.resolve(true);return lkHash(pin,l.s).then(function(h){return h===l.h})}
+function lkBody(){var l=lkGet();if(!l)return'<div class="m">Schützt die App mit einer PIN, falls jemand dein entsperrtes Handy in die Hand bekommt. Die Daten selbst bleiben unverschlüsselt auf dem Gerät – das ist ein Sichtschutz, kein Tresor.</div><div class="r"><button class="b" data-a="lkset">PIN festlegen</button></div>';
+return'<div class="m">App-Sperre ist aktiv. Die App sperrt sich beim Öffnen und nach 1 Minute im Hintergrund.</div><div class="r"><button class="b" data-a="lkset">PIN ändern</button><button class="o" data-a="lkoff">Sperre entfernen</button></div>'}
+function lkCover(){var d=document.getElementById('lk');if(d)return d;d=document.createElement('div');d.id='lk';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');document.body.appendChild(d);return d}
+function lkShow(){var l=lkGet();if(!l)return;var d=lkCover();LK.t=0;
+d.innerHTML='<div class="lkw"><h2>Gym-Tracker</h2><div class="m">PIN eingeben</div><input id="lkp" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="PIN"><div class="m sym" id="lkm" role="alert"></div><div class="r"><button class="b" data-a="lkgo">Entsperren</button></div><div class="r"><button class="o" data-a="lkfg">PIN vergessen</button></div></div>';
+var i=document.getElementById('lkp');if(i){i.addEventListener('keydown',function(e){if(e.key==='Enter')lkTry()});setTimeout(function(){try{i.focus()}catch(e){}},100)}}
+function lkMsg(t){var m=document.getElementById('lkm');if(m)m.textContent=t}
+function lkOpen(){var d=document.getElementById('lk');if(d)d.remove()}
+function lkTry(){var i=document.getElementById('lkp');if(!i)return;if(Date.now()<LK.until){lkMsg('Zu viele Versuche. Bitte '+Math.ceil((LK.until-Date.now())/1000)+' s warten.');return}
+lkCheck(i.value).then(function(ok){if(ok){LK.fail=0;LK.until=0;lkSv();lkOpen()}else{LK.fail++;i.value='';if(LK.fail>=5){LK.until=Date.now()+30000*Math.pow(2,Math.min(4,Math.floor(LK.fail/5)-1));LK.fail=LK.fail>=15?10:LK.fail;lkMsg('Zu viele Versuche. Bitte kurz warten.')}else lkMsg('Falsche PIN.');lkSv()}})}
+function lkForm(title,sub,go,extra){ovShow('<div class="mrh"><div class="mrt"><h2>'+title+'</h2><span>'+sub+'</span></div><button class="mrx" data-a="mrx">×</button></div><div class="c">'+extra+'<div class="m sym" id="sym" role="alert"></div><div class="r"><button class="b" data-a="'+go+'">Speichern</button></div></div>')}
+function lkIn(id,lab){return'<label class="m" for="'+id+'">'+lab+'</label><input id="'+id+'" type="password" inputmode="numeric" autocomplete="off" maxlength="8">'}
+function lkV(id){return((document.getElementById(id)||{}).value||'').trim()}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a^="lk"]');if(!b)return;var a=b.getAttribute('data-a');if(!/^lk(set|off|go|fg|sv|rm|pw)$/.test(a))return;e.stopImmediatePropagation();e.preventDefault();
+var l=lkGet();
+if(a==='lkgo')lkTry();
+else if(a==='lkset')lkForm(l?'PIN ändern':'PIN festlegen','4–8 Ziffern','lksv',(l?lkIn('lko','Aktuelle PIN'):'')+lkIn('lkn','Neue PIN')+lkIn('lkn2','Neue PIN wiederholen'));
+else if(a==='lksv'){var n=lkV('lkn'),n2=lkV('lkn2');var m=function(t){syMsg?syMsg(t):0};
+ var run=function(){if(!/^\d{4,8}$/.test(n)){m('Die PIN muss aus 4 bis 8 Ziffern bestehen.');return}if(n!==n2){m('Die beiden PINs stimmen nicht überein.');return}lkSet(n).then(function(){var c=document.querySelector('#mrv [data-a="mrx"]');if(c)c.click();toast('App-Sperre aktiv');render()})};
+ if(l)lkCheck(lkV('lko')).then(function(ok){if(!ok){m('Aktuelle PIN ist falsch.');return}run()});else run()}
+else if(a==='lkoff')lkForm('Sperre entfernen','Zur Bestätigung die PIN eingeben','lkrm',lkIn('lko','Aktuelle PIN'));
+else if(a==='lkrm')lkCheck(lkV('lko')).then(function(ok){if(!ok){syMsg('PIN ist falsch.');return}localStorage.removeItem('gt4_lock');var c=document.querySelector('#mrv [data-a="mrx"]');if(c)c.click();toast('App-Sperre entfernt');render()});
+else if(a==='lkfg'){var au=(typeof fbAuth==='function')&&fbAuth();var d=lkCover();d.innerHTML='<div class="lkw"><h2>PIN vergessen</h2>'+(au&&au.email?'<div class="m">Gib das Passwort deines Kontos ('+esc(au.email)+') ein, um die Sperre zu entfernen. Deine Daten bleiben erhalten.</div><input id="lkpw" type="password" autocomplete="current-password" aria-label="Konto-Passwort"><div class="m sym" id="lkm" role="alert"></div><div class="r"><button class="b" data-a="lkpw">Sperre entfernen</button></div>':'<div class="m">Ohne Konto gibt es keinen Weg, die PIN zurückzusetzen, außer die Website-Daten in Safari zu löschen. Dabei gehen alle lokalen Daten verloren, die nicht gesichert sind.</div>')+'<div class="r"><button class="o" data-a="lkback">Zurück</button></div></div>'}
+else if(a==='lkpw'){var au2=fbAuth();var pw=(document.getElementById('lkpw')||{}).value||'';if(!pw)return;fbPost(fbIdUrl('signInWithPassword'),{email:au2.email,password:pw,returnSecureToken:true}).then(function(){localStorage.removeItem('gt4_lock');lkOpen();toast('App-Sperre entfernt')}).catch(function(){lkMsg('Passwort ist falsch.')})}
+},true);
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="lkback"]');if(b){e.stopImmediatePropagation();lkShow()}},true);
+document.addEventListener('visibilitychange',function(){if(document.hidden){LK.t=Date.now()}else if(LK.t&&Date.now()-LK.t>60000&&lkGet()&&!document.getElementById('lk'))lkShow()});
+if(lkGet()){lkShow()}
+
+/* Übung sofort als fertig markieren (ohne Neuaufbau) + Export der letzten 2 Wochen */
+function fxBadge(){var A=S.active;if(!A)return;var cs=document.querySelectorAll('#main .c .ex');cs.forEach(function(x){var c=x.closest('.c');if(!c)return;var ck=c.querySelector('[data-a="ck"]');if(!ck)return;var k=+ck.getAttribute('data-k'),e=A.ex[k];if(!e)return;var done=exDone(e);c.classList.toggle('exd',done);var b=c.querySelector('.exb');if(b){var t=document.createElement('div');t.innerHTML=exBadge(e);var nb=t.firstChild;if(nb&&b.outerHTML!==nb.outerHTML){b.className=nb.className;b.innerHTML=nb.innerHTML}}})}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="ck"],[data-a="as"],[data-a="wu"]');if(b)setTimeout(fxBadge,60)},true);
+var fxExpCard=exportCard;exportCard=function(){var h=fxExpCard();return h.replace('<div class="r"><button class="o" data-a="exs">','<div class="r"><button class="o" data-a="ex2c">Letzte 2 Wochen (CSV)</button><button class="o" data-a="ex2j">Letzte 2 Wochen (JSON)</button></div><div class="r"><button class="o" data-a="exs">')};
+function fx2w(){var d=new Date();d.setDate(d.getDate()-13);var f=ymd(d);return S.w.filter(function(w){return w.d>=f})}
+window.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-a="ex2c"],[data-a="ex2j"]');if(!b)return;e.stopImmediatePropagation();e.preventDefault();var a=b.getAttribute('data-a'),w=fx2w();
+if(!w.length){toast('Keine Trainings in den letzten 2 Wochen');return}
+var all=S.w;try{S.w=w;if(a==='ex2c')setExp('workouts_letzte_2_wochen.csv',hevyCsv());else setExp('gym-tracker_letzte_2_wochen.json',JSON.stringify({von:ymd(new Date(Date.now()-13*864e5)),bis:today(),workouts:w}))}finally{S.w=all}
+render()},true);
+
+/* Notfall-Reset: hängen gebliebene Wisch-Geste (Seite verschoben, #under sichtbar) */
+var SW={t:Date.now()};
+function swClean(){var un=document.getElementById('under'),sw=document.body.classList.contains('swp');if(!un&&!sw)return;document.body.classList.remove('swp');if(un)un.remove();['main','hd'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.transition='';el.style.transform='';el.style.willChange=''}});var o=document.getElementById('mrv');if(!o&&window.BSQ){cancelAnimationFrame(window.BSQ);window.BSQ=0}}
+['touchstart','touchmove','touchend','touchcancel'].forEach(function(n){document.addEventListener(n,function(){SW.t=Date.now();if(n==='touchend'||n==='touchcancel')setTimeout(function(){if(Date.now()-SW.t>=650)swClean()},700)},{passive:true,capture:true})});
+['visibilitychange','pageshow','focus','orientationchange','resize'].forEach(function(n){window.addEventListener(n,function(){setTimeout(function(){if(Date.now()-SW.t>400)swClean()},120)})});
+setInterval(function(){if(Date.now()-SW.t>3000)swClean()},1000);
 
 render()})();
 </script><script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>
